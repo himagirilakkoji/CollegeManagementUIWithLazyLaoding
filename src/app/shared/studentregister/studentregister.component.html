@@ -1,0 +1,71 @@
+<div class="center">
+    <div class="card m-3">
+        <h4 class="card-header">Register</h4>
+        <div class="card-body">
+            <form [formGroup]="registerForm" class="register-form w-100">
+                <div class="row">
+                    <div class="form-group col-6">
+                        <label for="firstName" class="fw-bold">First Name :</label>
+                        <input name="firstName" type="text" class="form-control" placeholder="Enter Your First Name"
+                            formControlName="firstName">
+                    </div>
+                    <div class="form-group col-6 mb-3">
+                        <label for="lastName" class="fw-bold">Last Name :</label>
+                        <input name="lastName" type="text" class="form-control" placeholder="Enter Your Last Name"
+                            formControlName="lastName">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-6">
+                        <label for="email" class="fw-bold">Email ID :</label>
+                        <input name="email" type="text" class="form-control" placeholder="Enter Your Eamil ID"
+                            formControlName="email">
+                    </div>
+                    <div class="form-group col-6 mb-3">
+                        <label for="password" class="fw-bold">Password :</label>
+                        <input name="password" type="password" class="form-control" placeholder="Enter Your Password"
+                            formControlName="password">
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- Department Dropdown-->
+                    <div class="form-group col-6">
+                        <label for="roles" class="fw-bold">Department :</label>
+                        <select name="roles" class="form-select" aria-label="Default select example">
+                            <option selected>Select menu</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                    </div>
+                    <!-- Course Dropdown-->
+                    <div class="form-group col-6 mb-3">
+                        <div>
+                            <label class="fw-bold">Course :</label>
+                            <ng-multiselect-dropdown [placeholder]="'Select Your Item'" [settings]="dropdownSettings"
+                                [data]="dropdownList" formControlName="myItems" (onSelect)="onItemSelect($event)"
+                                (onSelectAll)="onSelectAll($event)" (onDeSelect)="onItemDeSelect($event)"
+                                (onDeSelectAll)="onUnSelectAll()">
+                            </ng-multiselect-dropdown>
+                        </div>
+                    </div>
+                </div>
+                <!-- Subject Dropdown-->
+                <div class="form-group col-6 mb-3">
+                    <label for="roles" class="fw-bold">Subject :</label>
+                    <ng-multiselect-dropdown [placeholder]="'Select Your Item'" [settings]="dropdownSettings"
+                        [data]="dropdownList" formControlName="myItems" (onSelect)="onItemSelect($event)"
+                        (onSelectAll)="onSelectAll($event)" (onDeSelect)="onItemDeSelect($event)"
+                        (onDeSelectAll)="onUnSelectAll()">
+                    </ng-multiselect-dropdown>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary" (click)="Save()">
+                        Submit
+                    </button>
+                    <a class="btn btn-link" (click)="close()">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

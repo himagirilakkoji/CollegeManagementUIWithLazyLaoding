@@ -1,0 +1,20 @@
+.topbar{
+    background-color: #563d7c;
+}
+.circle{
+    width: 30px;
+    height: 30px;
+    background: #10bcf4;
+    margin: 10% auto;
+    border-radius: 50%;
+    position: relative;
+}
+.content{
+    position: absolute;
+    width: inherit;
+    height: auto;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: center;
+    color: #fff;
+}

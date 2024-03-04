@@ -1,0 +1,49 @@
+@media (min-width: 992px) {
+    .navbar,
+    .navbar-collapse {
+      flex-direction: column;
+    }
+    .navbar-expand-lg .navbar-nav {
+      flex-direction: column;
+    }
+    .navbar {
+      width: 100%;
+      height: 90.50vh;
+      align-items: flex-start;
+    }
+    .navbar-brand {
+      margin-left: 0.5em;
+      padding-bottom: 0;
+      border-bottom: 4px solid #464646;
+    }
+    form input {
+      margin-bottom: 0.7em;
+    }
+    .dropdown-menu {
+        animation: 0.5s slideup;
+      }
+      @keyframes slideup {
+        from {
+          transform: translateY(10%);
+        }
+      
+        to {
+          transform: translateY(0);
+        }
+      }
+  }
+  .faculty {
+    background-color: deepskyblue;
+    font-weight: bold;
+  }
+
+
+  .student{
+    background-color: deepskyblue;
+    font-weight: bold;
+  }
+
+  .verticalscrollbar{
+    overflow-x: hidden;
+    overflow-y: auto;
+}
