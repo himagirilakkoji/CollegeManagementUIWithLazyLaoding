@@ -1,4 +1,6 @@
 export const environment = {
-    ApiBaseUrl: "https://localhost:7286/",
-    PostLoginValidationUrl:"Api/Admin/LoginValidation"
+    production: false,
+    apiUrl: 'https://localhost:7286/',
+    postLoginValidationUrl:"Api/Admin/LoginValidation",
+    getDepartmentDetailsUrl:"Api/Admin/GetDepartmentDetails",
 };

@@ -17,7 +17,8 @@ export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   loginobj = new Login();
 
-  constructor(private formBuilder: FormBuilder, private service: ServicesService, private spinnerservice: SpinnerService, private router: Router, private _store: Store<{ data: { data: string } }>) {
+  constructor(private formBuilder: FormBuilder, private service: ServicesService, private spinnerservice: SpinnerService, private router: Router, private _store: Store<{ data: { data: string } }>,
+  ) {
 
   }
 
