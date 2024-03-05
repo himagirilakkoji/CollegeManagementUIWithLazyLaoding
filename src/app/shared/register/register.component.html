@@ -31,19 +31,18 @@
                     <!-- Department Dropdown-->
                     <div class="form-group col-6">
                         <label for="roles" class="fw-bold">Department :</label>
-                        <select name="roles" class="form-select" aria-label="Default select example">
+                        <select name="roles" formControlName="dept" class="form-select" aria-label="Default select example" (change)="onSelect($event)">
                             <option selected>Select menu</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                            <option  *ngFor="let dept of departments" value="{{dept}}">
+                                {{dept}}</option>
                         </select>
                     </div>
                     <!-- Course Dropdown-->
                     <div class="form-group col-6 mb-3">
                         <div>
                             <label class="fw-bold">Course :</label>
-                            <ng-multiselect-dropdown [placeholder]="'Select Your Item'" [settings]="dropdownSettings"
-                                [data]="dropdownList" formControlName="myItems" (onSelect)="onItemSelect($event)"
+                            <ng-multiselect-dropdown [placeholder]="'Select Your Item'" [settings]="dropdownCourseSettings"
+                                [data]="dropdownCourseList" formControlName="courses" (onSelect)="onItemFacultySelect($event)"
                                 (onSelectAll)="onSelectAll($event)" (onDeSelect)="onItemDeSelect($event)"
                                 (onDeSelectAll)="onUnSelectAll()">
                             </ng-multiselect-dropdown>
@@ -53,14 +52,14 @@
                 <!-- Subject Dropdown-->
                 <div class="form-group col-6 mb-3">
                     <label for="roles" class="fw-bold">Subject :</label>
-                    <ng-multiselect-dropdown [placeholder]="'Select Your Item'" [settings]="dropdownSettings"
-                        [data]="dropdownList" formControlName="myItems" (onSelect)="onItemSelect($event)"
+                    <ng-multiselect-dropdown [placeholder]="'Select Your Item'" [settings]="dropdownSubjectSettings"
+                        [data]="dropdownSubjectList" formControlName="subjects"   (onSelect)="onItemSubjectSelect($event)"
                         (onSelectAll)="onSelectAll($event)" (onDeSelect)="onItemDeSelect($event)"
                         (onDeSelectAll)="onUnSelectAll()">
                     </ng-multiselect-dropdown>
                 </div>
                 <div class="form-group">
-                    <button class="btn btn-primary" (click)="Save()">
+                    <button class="btn btn-primary" (click)="Submit()">
                         Submit
                     </button>
                     <a class="btn btn-link" (click)="close()">Cancel</a>

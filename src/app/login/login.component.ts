@@ -41,6 +41,7 @@ export class LoginComponent implements OnInit {
       if (res != null && res.adminDetails.roleName == "Admin") {
         console.log("login", res.adminDetails.roleName);
         this._store.dispatch(loginAdminAction());
+        alert("User Login Sucess");
         this.router.navigateByUrl('/adminDashboard');
       }
     })

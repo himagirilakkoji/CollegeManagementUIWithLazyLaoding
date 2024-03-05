@@ -12,17 +12,13 @@ import { Sharedmodel } from 'src/app/shared/sharedmodel';
 export class AdminComponent {
   receivedData = new Sharedmodel();
   sessiondata: string = "";
+
   constructor(private _service: ServicesService, private _store: Store<{ data: { data: string } }>) 
   {
 
   }
 
   ngOnInit() {
-
-    this._service.getFacultydata().subscribe(res=>{
-        console.log(res);
-    });
-
     this._store.select('data').subscribe(res => {
       this.sessiondata = res.data;
       console.log("admin ",this.sessiondata);
@@ -36,7 +32,6 @@ export class AdminComponent {
 
   receiveregData(data: any) {
     this.receivedData = data;
-    //alert(this.receivedData?.isAddStudentClicked)
   }
 
   receiveStudentlistData(data: any) {

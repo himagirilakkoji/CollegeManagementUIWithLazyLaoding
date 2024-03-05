@@ -19,6 +19,12 @@ export class ServicesService {
     return this.http.post<any>(apiUrl, data, { headers });
   }
 
+  postFaculty(data: any): Observable<any> {
+    const apiUrl = environment.apiUrl+environment.postFacultyUrl;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post<any>(apiUrl, data, { headers });
+  }
+
   getFacultydata(): Observable<any> {
     const apiUrl = environment.apiUrl+environment.getDepartmentDetailsUrl;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
