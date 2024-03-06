@@ -25,21 +25,21 @@ export class RegisterComponent implements OnInit {
   dropdownCourseSettings: IDropdownSettings = {};
   dropdownSubjectSettings: IDropdownSettings = {};
 
-  deptList: Array<any>= [];
-  departments:Array<any>= [];
-  courses : Array<any> = [];
+  deptList: Array<any> = [];
+  departments: Array<any> = [];
+  courses: Array<any> = [];
   subjects: Array<any> = [];
-  deptDropDownSelectedItem : string = "";
-  courseDropDownSelectedItem : string = "";
-  subjectDropDownSelectedItem : string = "";
-  previousCourseData:any = []; 
-  
+  deptDropDownSelectedItem: string = "";
+  courseDropDownSelectedItem: string = "";
+  subjectDropDownSelectedItem: string = "";
+  previousCourseData: any = [];
+
   constructor(private formBuilder: FormBuilder, private router: Router,
-    private _service: ServicesService,private cdr: ChangeDetectorRef) {
+    private _service: ServicesService, private cdr: ChangeDetectorRef) {
   }
 
   ngOnInit(): void {
-    this._service.getFacultydata().subscribe(res=>{
+    this._service.getDepartmentdata().subscribe(res => {
       this.deptList = res.response;
       this.departments = this.deptList.map((a: any) => { return a.departmentName });
     });
@@ -65,40 +65,40 @@ export class RegisterComponent implements OnInit {
   buildForm() {
     this.registerForm = this.formBuilder.group({
       firstName: new FormControl("", [Validators.required,]),
-      lastName:  new FormControl("", [Validators.required]),
-      email:     new FormControl("", [Validators.required]),
-      password:  new FormControl("", [Validators.required]),
-      dept:      new FormControl("Select menu", [Validators.required]),
-      courses:   new FormControl("", [Validators.required]),
-      subjects:  new FormControl("", [Validators.required])
+      lastName: new FormControl("", [Validators.required]),
+      email: new FormControl("", [Validators.required]),
+      password: new FormControl("", [Validators.required]),
+      dept: new FormControl("Select menu", [Validators.required]),
+      courses: new FormControl("", [Validators.required]),
+      subjects: new FormControl("", [Validators.required])
     });
   }
 
-  onSelect(selectedValue: any) {
-    this.dropdownCourseList =[];
-    this.dropdownSubjectList =[];
-    this.previousCourseData =[];
+  onDepartmentSelect(selectedValue: any) {
+    this.dropdownCourseList = [];
+    this.dropdownSubjectList = [];
+    this.previousCourseData = [];
     this.registerForm.get('courses')?.setValue('');
     this.registerForm.get('subjects')?.setValue('');
     let matchedDept = [];
     console.log('Selected value:', selectedValue.target.value);
     this.deptDropDownSelectedItem = selectedValue.target.value;
     matchedDept = this.deptList.filter(x => x.departmentName === selectedValue.target.value);
-    this.courses  = matchedDept[0].courses.map((a: any) => ({item_id: a.courseId, item_text: a.courseName }));
+    this.courses = matchedDept[0].courses.map((a: any) => ({ item_id: a.courseId, item_text: a.courseName }));
     this.dropdownCourseList = this.courses;
   }
-  
-  onItemFacultySelect(item: any) {
+
+  onCourseSelect(item: any) {
     this.courseDropDownSelectedItem = item;
     let matchedDept = [];
     let matchedCourses = [];
-    this.dropdownSubjectList=[];
+    this.dropdownSubjectList = [];
     matchedDept = this.deptList.filter(x => x.departmentName === this.deptDropDownSelectedItem);
-    matchedCourses = matchedDept[0].courses.filter((y:any) =>y.courseName === item.item_text);
-    if(matchedCourses[0].subjects != null){
-      this.subjects  = matchedCourses[0].subjects.map((a: any) => ({item_id: a.subjectId, item_text: a.subjectName }));
+    matchedCourses = matchedDept[0].courses.filter((y: any) => y.courseName === item.item_text);
+    if (matchedCourses[0].subjects != null) {
+      this.subjects = matchedCourses[0].subjects.map((a: any) => ({ item_id: a.subjectId, item_text: a.subjectName }));
     }
-    this.dropdownSubjectList = [...this.subjects,...this.previousCourseData]
+    this.dropdownSubjectList = [...this.subjects, ...this.previousCourseData]
     this.previousCourseData = this.dropdownSubjectList;
   }
 
@@ -106,29 +106,37 @@ export class RegisterComponent implements OnInit {
     console.log(this.registerForm.value);
     this.facultyCreateobj.firstName = this.registerForm.value.firstName;
     this.facultyCreateobj.lastName = this.registerForm.value.lastName;
-    this.facultyCreateobj.userName = this.registerForm.value.firstName+" "+this.registerForm.value.lastName;
+    this.facultyCreateobj.userName = this.registerForm.value.firstName + " " + this.registerForm.value.lastName;
     this.facultyCreateobj.email = this.registerForm.value.email;
     this.facultyCreateobj.password = this.registerForm.value.password;
     this.facultyCreateobj.dept = this.registerForm.value.dept;
 
-    this.facultyCreateobj.courseRequests = this.registerForm.value.courses.map((item:any) => {
+    this.facultyCreateobj.courseRequests = this.registerForm.value.courses.map((item: any) => {
       return {
-          courseName: item.item_text
+        dept: this.facultyCreateobj.dept,
+        courseName: item.item_text
       };
     });
 
-    this.facultyCreateobj.subjectRequests = this.registerForm.value.subjects.map((item:any) => {
+    this.facultyCreateobj.subjectRequests = this.registerForm.value.subjects.map((subjitem: any) => {
+
+      const filteredCourses = this.deptList.flatMap(department => department.courses.filter((course: any) =>
+        course.subjects.some((subject: any) => subject.subjectName.toLowerCase() === subjitem.item_text.toLowerCase())))
+        .map(course => course.courseName);
+
       return {
-        subjectName : item.item_text
+        courseName: filteredCourses.length > 0 ? filteredCourses[0] : null,
+        subjectName: subjitem.item_text
       };
     });
 
-    this._service.postFaculty(this.facultyCreateobj).subscribe(res =>{
-      if(res.response == "Success"){
-          alert("Suceessfully new Faculty Created");
-          // this.registerForm.get('courses')?.setValue('');
-          // this.registerForm.get('subjects')?.setValue('');
-          // this.registerForm.get('dept')?.setValue('Select menu');
+    console.log(this.facultyCreateobj.subjectRequests);
+    this._service.postFaculty(this.facultyCreateobj).subscribe(res => {
+      if(res.response == "Success") {
+        alert("Suceessfully new Faculty Created");
+        // this.registerForm.get('courses')?.setValue('');
+        // this.registerForm.get('subjects')?.setValue('');
+        // this.registerForm.get('dept')?.setValue('Select menu');
       }
       else{
         alert("Something went Wrong");
@@ -150,18 +158,18 @@ export class RegisterComponent implements OnInit {
 
   }
 
-  onItemSubjectDeSelect(){
-    
+  onItemSubjectDeSelect() {
+
   }
 
   onItemDeSelect(item: any) {
     console.log('onItemDeSelect', item);
     let matchedDept = this.deptList.filter(x => x.departmentName === this.deptDropDownSelectedItem);
-    let matchedCourses = matchedDept[0].courses.filter((y:any) =>y.courseName === item.item_text);
-    if(matchedCourses[0].subjects != null){
-      var subjects  = matchedCourses[0].subjects.map((a: any) => ({item_id: a.subjectId, item_text: a.subjectName }));
+    let matchedCourses = matchedDept[0].courses.filter((y: any) => y.courseName === item.item_text);
+    if(matchedCourses[0].subjects != null) {
+      var subjects = matchedCourses[0].subjects.map((a: any) => ({ item_id: a.subjectId, item_text: a.subjectName }));
     }
-    this.dropdownSubjectList =  this.dropdownSubjectList.filter((item1:any) => !subjects.some((item2:any) => item1.item_id === item2.item_id && item1.item_text === item2.item_text));
+    this.dropdownSubjectList = this.dropdownSubjectList.filter((item1: any) => !subjects.some((item2: any) => item1.item_id === item2.item_id && item1.item_text === item2.item_text));
     this.previousCourseData = [];
   }
   onSelectAll(items: any) {

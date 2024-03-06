@@ -25,10 +25,22 @@ export class ServicesService {
     return this.http.post<any>(apiUrl, data, { headers });
   }
 
-  getFacultydata(): Observable<any> {
+  getDepartmentdata(): Observable<any> {
     const apiUrl = environment.apiUrl+environment.getDepartmentDetailsUrl;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.get<any>(apiUrl);
+  }
+
+  getFacultyListdata(): Observable<any> {
+    const apiUrl = environment.apiUrl+environment.getFacultyListUrl;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.get<any>(apiUrl);
+  }
+
+  deleteFacultyById(userid:any): Observable<any> {
+    const apiUrl = environment.apiUrl+environment.deleteFacultyByIdUrl;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.delete<any>(`${apiUrl}/${userid}`);
   }
 
 }

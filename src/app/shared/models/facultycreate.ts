@@ -10,9 +10,11 @@ export class Facultycreate {
 }
 
 export class Courses {
+    dept :      string |undefined
     courseName: string | undefined;
 }
 
 export class Subjects {
+    courseName  : string | undefined;
     subjectName: string | undefined;
 }

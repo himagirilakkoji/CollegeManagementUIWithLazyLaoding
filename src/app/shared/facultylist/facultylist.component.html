@@ -6,111 +6,23 @@
             <th scope="col">Last Name</th>
             <th scope="col">User Name</th>
             <th scope="col">EamilId</th>
-            <th scope="col">Password</th>
+            <th scope="col">Dept</th>
             <th scope="col">Edit</th>
             <th scope="col">Delete</th>
             <th scope="col">Report</th>
           </tr>
     </thead>
     <tbody>
-        <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
+        <tr *ngFor="let user of allfaculties; let i = index">
+            <th scope="row">{{i+1}}</th>
+            <td>{{user.firstName}}</td>
+            <td>{{user.lastName}}</td>
+            <td>{{user.userName}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.dept}}</td>
             <td><i class="fas fa-edit"></i></td>
-            <td><i class="fa-solid fa-trash"></i></td>
+            <td (click)="deleteUser(user)"><i class="fa-solid fa-trash"></i></td>
             <td><a style="text-decoration: underline; color: rgb(13, 110, 253);">View</a></td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Larry the Bird</td>
-            <td>@twitter</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td><i class="fas fa-edit"></i></td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>@twitter</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td><i class="fas fa-edit"></i></td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>@twitter</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td><i class="fas fa-edit"></i></td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>@twitter</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td><i class="fas fa-edit"></i></td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>@twitter</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td><i class="fas fa-edit"></i></td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>@twitter</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td><i class="fas fa-edit"></i></td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>@twitter</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td><i class="fas fa-edit"></i></td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>@twitter</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-            <td>@mdo</td>
-          </tr>
+        </tr>
     </tbody>
   </table>

@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { ServicesService } from '../services.service';
 import { Sharedmodel } from '../sharedmodel';
+import { Facultylist } from '../models/facultylist';
 
 @Component({
   selector: 'app-sidebar',
@@ -10,6 +11,7 @@ import { Sharedmodel } from '../sharedmodel';
 export class SidebarComponent {
   @Output() dataEvent = new EventEmitter<Sharedmodel>();
   adminbarbj = new Sharedmodel();
+  allfaculties = new Facultylist();
 
   constructor(private service : ServicesService){
 
@@ -29,8 +31,6 @@ export class SidebarComponent {
     this.adminbarbj.isAddFacultyClicked = false;
     this.adminbarbj.isAddStudentClicked = false;
     this.dataEvent.emit(this.adminbarbj);
-    this.service.getFacultydata().subscribe(res => {});
-      //get faculty data
   }
 
   addStudent(){
@@ -47,8 +47,6 @@ export class SidebarComponent {
     this.adminbarbj.isAddFacultyClicked = false;
     this.adminbarbj.isAddStudentClicked = false;
     this.dataEvent.emit(this.adminbarbj);
-    this.service.getFacultydata().subscribe(res => {});
-      //get faculty data
   }
 
 }

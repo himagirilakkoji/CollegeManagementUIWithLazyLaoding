@@ -31,7 +31,7 @@
                     <!-- Department Dropdown-->
                     <div class="form-group col-6">
                         <label for="roles" class="fw-bold">Department :</label>
-                        <select name="roles" formControlName="dept" class="form-select" aria-label="Default select example" (change)="onSelect($event)">
+                        <select name="roles" formControlName="dept" class="form-select" aria-label="Default select example" (change)="onDepartmentSelect($event)">
                             <option selected>Select menu</option>
                             <option  *ngFor="let dept of departments" value="{{dept}}">
                                 {{dept}}</option>
@@ -42,7 +42,7 @@
                         <div>
                             <label class="fw-bold">Course :</label>
                             <ng-multiselect-dropdown [placeholder]="'Select Your Item'" [settings]="dropdownCourseSettings"
-                                [data]="dropdownCourseList" formControlName="courses" (onSelect)="onItemFacultySelect($event)"
+                                [data]="dropdownCourseList" formControlName="courses" (onSelect)="onCourseSelect($event)"
                                 (onSelectAll)="onSelectAll($event)" (onDeSelect)="onItemDeSelect($event)"
                                 (onDeSelectAll)="onUnSelectAll()">
                             </ng-multiselect-dropdown>
