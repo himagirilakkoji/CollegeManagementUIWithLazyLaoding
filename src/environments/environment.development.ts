@@ -6,4 +6,5 @@ export const environment = {
     getDepartmentDetailsUrl:"Api/Admin/GetDepartmentDetails",
     getFacultyListUrl:"Api/Admin/GetAllFaculties",
     deleteFacultyByIdUrl:"Api/Admin/DeleteCurrentFaculty",
+    updateFacultyByIdUrl:"Api/Admin/UpdateCurrentFaculty",
 };

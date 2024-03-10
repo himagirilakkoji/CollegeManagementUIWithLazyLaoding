@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Facultylist } from '../models/facultylist';
 import { ServicesService } from '../services.service';
+import { Sharedmodel } from '../sharedmodel';
+import { SpinnerService } from '../spinner.service';
 
 @Component({
   selector: 'app-facultylist',
@@ -9,8 +11,18 @@ import { ServicesService } from '../services.service';
 })
 export class FacultylistComponent implements OnInit {
   allfaculties : Facultylist[] = [];
-  constructor(private service : ServicesService){
+  facultyObj = new Sharedmodel();
 
+  @Output() facultyEditEvent = new EventEmitter<Facultylist>();
+  @Output() facultyEvent = new EventEmitter<Sharedmodel>();
+
+
+  constructor(private service : ServicesService, private spinnerservice: SpinnerService,){
+
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    
   }
 
   ngOnInit(): void {
@@ -29,6 +41,16 @@ export class FacultylistComponent implements OnInit {
             });
         }
        });
+  }
+
+  editUser(data:any){
+      this.facultyObj.isAddStudentClicked = false;
+      this.facultyObj.isAddFacultyClicked = false;
+      this.facultyObj.isFacultylistClicked = false;
+      this.facultyObj.isStudentlistClicked = false;
+      this.facultyObj.isEditFacultyClicked = true;
+      this.facultyEditEvent.emit(data);
+      this.facultyEvent.emit(this.facultyObj);
   }
 
 }

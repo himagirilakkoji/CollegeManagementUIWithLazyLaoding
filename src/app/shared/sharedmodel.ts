@@ -1,6 +1,8 @@
 export class Sharedmodel {
-    isAddFacultyClicked: boolean | undefined;
-    isAddStudentClicked: boolean | undefined;
-    isFacultylistClicked: boolean | undefined;
-    isStudentlistClicked: boolean | undefined;
+    isRegitrtionPageClicked: boolean = false;
+    isAddFacultyClicked: boolean = false;
+    isAddStudentClicked: boolean = false;
+    isFacultylistClicked: boolean = false;
+    isStudentlistClicked: boolean = false;
+    isEditFacultyClicked: boolean = false;
 }

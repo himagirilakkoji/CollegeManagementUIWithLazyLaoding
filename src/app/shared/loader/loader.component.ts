@@ -9,6 +9,8 @@ import { SpinnerService } from '../spinner.service';
 export class LoaderComponent {
   isloader:boolean = false;
   constructor(private loaderService: SpinnerService) {
-    this.loaderService.isLoading.subscribe(result =>{ this.isloader = result});;
+    this.loaderService.isLoading.subscribe(result =>{
+       this.isloader = result;
+      });
   }
 }

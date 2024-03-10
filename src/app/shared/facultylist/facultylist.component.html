@@ -20,7 +20,7 @@
             <td>{{user.userName}}</td>
             <td>{{user.email}}</td>
             <td>{{user.dept}}</td>
-            <td><i class="fas fa-edit"></i></td>
+            <td (click)="editUser(user)"><i class="fas fa-edit"></i></td>
             <td (click)="deleteUser(user)"><i class="fa-solid fa-trash"></i></td>
             <td><a style="text-decoration: underline; color: rgb(13, 110, 253);">View</a></td>
         </tr>

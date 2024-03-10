@@ -15,6 +15,7 @@ import { FacultylistComponent } from './facultylist/facultylist.component';
 import { LoginGuard } from './authguard/login.guard';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { StudentregisterComponent } from './studentregister/studentregister.component';
+import { ExamreportComponent } from './examreport/examreport.component';
 
 
 
@@ -27,6 +28,7 @@ import { StudentregisterComponent } from './studentregister/studentregister.comp
     StudentlistComponent,
     FacultylistComponent,
     StudentregisterComponent,
+    ExamreportComponent,
   ],
   imports: [
     CommonModule,
@@ -37,7 +39,7 @@ import { StudentregisterComponent } from './studentregister/studentregister.comp
   ],
   exports: [RegisterComponent,LoaderComponent,TopbarComponent,SidebarComponent,FormsModule,
     ReactiveFormsModule ,StudentlistComponent,
-    FacultylistComponent,StudentregisterComponent],
+    FacultylistComponent,StudentregisterComponent,ExamreportComponent],
   providers: [LoginGuard,ServicesService,SpinnerService,{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi:true},
                                              {provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi:true}]
 })

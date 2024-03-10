@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { loginAdminAction } from 'src/app/loginAction';
+import { Facultylist } from 'src/app/shared/models/facultylist';
 import { ServicesService } from 'src/app/shared/services.service';
 import { Sharedmodel } from 'src/app/shared/sharedmodel';
 
@@ -11,11 +12,14 @@ import { Sharedmodel } from 'src/app/shared/sharedmodel';
 })
 export class AdminComponent {
   receivedData = new Sharedmodel();
+  editCommonData = new Sharedmodel();
+  editFacultyData = new Facultylist();
+  
   sessiondata: string = "";
 
   constructor(private _service: ServicesService, private _store: Store<{ data: { data: string } }>) 
   {
-
+     this.receiveData
   }
 
   ngOnInit() {
@@ -40,6 +44,21 @@ export class AdminComponent {
 
   receiveFacultylistData(data: any) {
     this.receivedData = data;
+  }
+  
+  receiveCommonData(data : any){
+    this.receivedData = data;
+  }
+
+  receiveEditFacutyData(data: any){
+    if(data.email != null){
+      this.editFacultyData = data;
+      this.editCommonData.isAddFacultyClicked = false;
+      this.editCommonData.isAddStudentClicked = false;
+      this.editCommonData.isEditFacultyClicked = true;
+      this.editCommonData.isFacultylistClicked = false;
+      this.editCommonData.isStudentlistClicked = false;
+    }
   }
 
 }

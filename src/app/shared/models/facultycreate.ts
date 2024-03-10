@@ -1,4 +1,5 @@
 export class Facultycreate {
+    facultyId:string | undefined;
     firstName: string | undefined;
     lastName : string | undefined;
     userName : string | undefined;

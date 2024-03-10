@@ -1,6 +1,6 @@
 <div class="center">
     <div class="card m-3">
-        <h4 class="card-header">Register</h4>
+        <h4 class="card-header">{{registerobj.isEditFacultyClicked ? 'Update' : 'Register'}}</h4>
         <div class="card-body">
             <form [formGroup]="registerForm" class="register-form w-100">
                 <div class="row">
@@ -31,7 +31,7 @@
                     <!-- Department Dropdown-->
                     <div class="form-group col-6">
                         <label for="roles" class="fw-bold">Department :</label>
-                        <select name="roles" formControlName="dept" class="form-select" aria-label="Default select example" (change)="onDepartmentSelect($event)">
+                        <select name="roles" #selectElement formControlName="dept" class="form-select" aria-label="Default select example" (change)="onDepartmentSelect($event)">
                             <option selected>Select menu</option>
                             <option  *ngFor="let dept of departments" value="{{dept}}">
                                 {{dept}}</option>
@@ -41,9 +41,9 @@
                     <div class="form-group col-6 mb-3">
                         <div>
                             <label class="fw-bold">Course :</label>
-                            <ng-multiselect-dropdown [placeholder]="'Select Your Item'" [settings]="dropdownCourseSettings"
+                            <ng-multiselect-dropdown #ngmultiselectcoursedropdownElement [placeholder]="'Select Your Item'" [settings]="dropdownCourseSettings"
                                 [data]="dropdownCourseList" formControlName="courses" (onSelect)="onCourseSelect($event)"
-                                (onSelectAll)="onSelectAll($event)" (onDeSelect)="onItemDeSelect($event)"
+                                (onSelectAll)="onSelectAll($event)" (onDeSelect)="onItemCourseDeSelect($event)"
                                 (onDeSelectAll)="onUnSelectAll()">
                             </ng-multiselect-dropdown>
                         </div>
@@ -52,15 +52,15 @@
                 <!-- Subject Dropdown-->
                 <div class="form-group col-6 mb-3">
                     <label for="roles" class="fw-bold">Subject :</label>
-                    <ng-multiselect-dropdown [placeholder]="'Select Your Item'" [settings]="dropdownSubjectSettings"
+                    <ng-multiselect-dropdown #ngmultiselectsubjectdropdownElement [placeholder]="'Select Your Item'" [settings]="dropdownSubjectSettings"
                         [data]="dropdownSubjectList" formControlName="subjects"   (onSelect)="onItemSubjectSelect($event)"
-                        (onSelectAll)="onSelectAll($event)" (onDeSelect)="onItemDeSelect($event)"
+                        (onSelectAll)="onSelectAll($event)" (onDeSelect)="onItemSubjectDeSelect($event)"
                         (onDeSelectAll)="onUnSelectAll()">
                     </ng-multiselect-dropdown>
                 </div>
                 <div class="form-group">
-                    <button class="btn btn-primary" (click)="Submit()">
-                        Submit
+                    <button class="btn btn-primary" (click)="registerobj.isEditFacultyClicked ?  update() : submit()">
+                        {{registerobj.isEditFacultyClicked ? 'Update' : 'Submit'}}
                     </button>
                     <a class="btn btn-link" (click)="close()">Cancel</a>
                 </div>

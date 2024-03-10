@@ -43,4 +43,10 @@ export class ServicesService {
     return this.http.delete<any>(`${apiUrl}/${userid}`);
   }
 
+  updateFacultyById(userid:any,data:any): Observable<any> {
+    const apiUrl = environment.apiUrl+environment.updateFacultyByIdUrl;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.put<any>(`${apiUrl}/${userid}`, data, { headers });
+  }
+
 }
