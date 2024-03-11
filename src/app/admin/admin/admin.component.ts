@@ -61,4 +61,12 @@ export class AdminComponent {
     }
   }
 
+  receiveStudentRegData(data:any){
+     this.receivedData = data;
+  }
+
+  regStuDataEvent(data : any){
+     this.receivedData = data
+  } 
+
 }

@@ -1,0 +1,62 @@
+<div class="center">
+    <div class="card m-3">
+        <h4 class="card-header">Student Registration</h4>
+        <div class="card-body">
+            <form [formGroup]="studentRegisterForm" class="register-form w-100">
+                <div class="row">
+                    <div class="form-group col-6">
+                        <label for="firstName" class="fw-bold">First Name :</label>
+                        <input name="firstName" type="text" class="form-control" placeholder="Enter Your First Name"
+                            formControlName="firstName" required>
+                    </div>
+                    <div class="form-group col-6 mb-3">
+                        <label for="lastName" class="fw-bold">Last Name :</label>
+                        <input name="lastName" type="text" class="form-control" placeholder="Enter Your Last Name"
+                            formControlName="lastName" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-6">
+                        <label for="email" class="fw-bold">Email ID :</label>
+                        <input name="email" type="text" class="form-control" placeholder="Enter Your Eamil ID"
+                            formControlName="email" required>
+                    </div>
+                    <div class="form-group col-6 mb-3">
+                        <label for="password" class="fw-bold">Password :</label>
+                        <input name="password" type="password" class="form-control" placeholder="Enter Your Password"
+                            formControlName="password" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- Branch Dropdown-->
+                    <div class="form-group col-6  mb-3">
+                        <label for="roles" class="fw-bold">Branch :</label>
+                        <select name="roles" formControlName="branch" class="form-select"
+                            aria-label="Default select example" (change)="onBranchSelect($event)" required>
+                            <option selected>Select menu</option>
+                            <option *ngFor="let branch of branches" value="{{branch}}">
+                                {{branch}}</option>
+                        </select>
+                    </div>
+
+                    <!-- Faculty Dropdown-->
+                    <div class="form-group col-6  mb-3">
+                        <label for="faculty" class="fw-bold">Faculty :</label>
+                        <select name="faculty" formControlName="faculty" class="form-select"
+                            aria-label="Default select example" (change)="onFacultySelect($event)" required>
+                            <option selected>Select menu</option>
+                            <option *ngFor="let username of studentFaculty" value="{{username}}">
+                                {{username}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary" (click)="submit()" [disabled]="!studentRegisterForm.valid">
+                        Submit
+                    </button>
+                    <a class="btn btn-link" (click)="close()">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

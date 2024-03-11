@@ -49,4 +49,22 @@ export class ServicesService {
     return this.http.put<any>(`${apiUrl}/${userid}`, data, { headers });
   }
 
+  postStudent(data: any): Observable<any> {
+    const apiUrl = environment.apiUrl+environment.postStudentUrl;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post<any>(apiUrl, data, { headers });
+  }
+
+  getStudentListdata(): Observable<any> {
+    const apiUrl = environment.apiUrl+environment.getAllStudentUrl;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.get<any>(apiUrl);
+  }
+
+  deleteStudentById(userid:any): Observable<any> {
+    const apiUrl = environment.apiUrl+environment.deleteStudentByIdUrl;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.delete<any>(`${apiUrl}/${userid}`);
+  }
+
 }

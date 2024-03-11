@@ -34,10 +34,11 @@ export class SidebarComponent {
   }
 
   addStudent(){
-    this.adminbarbj.isAddFacultyClicked = false;
     this.adminbarbj.isAddStudentClicked = true;
+    this.adminbarbj.isAddFacultyClicked = false;
     this.adminbarbj.isFacultylistClicked = false;
     this.adminbarbj.isStudentlistClicked = false;
+    this.adminbarbj.isEditFacultyClicked = false;
     this.dataEvent.emit(this.adminbarbj);
   }
 
@@ -46,6 +47,7 @@ export class SidebarComponent {
     this.adminbarbj.isStudentlistClicked = true;
     this.adminbarbj.isAddFacultyClicked = false;
     this.adminbarbj.isAddStudentClicked = false;
+    this.adminbarbj.isEditFacultyClicked = false;
     this.dataEvent.emit(this.adminbarbj);
   }
 
