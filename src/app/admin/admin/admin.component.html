@@ -9,10 +9,12 @@
         </div>
         <div class="col-md-10 d-flex align-items-center justify-content-center verticalscrollbar">
             <app-studentlist (regdataEvent)="receiveStudentlistData($event)" *ngIf="receivedData.isStudentlistClicked" class="w-100" style="box-shadow: 0px 25px 40px 3px rgba(0,0,0,0.45);"></app-studentlist>
-            <app-facultylist (regdataEvent)="receiveFacultylistData($event)" (facultyEditEvent)="receiveEditFacutyData($event)" (facultyEvent)="receiveCommonData($event)"  *ngIf="receivedData.isFacultylistClicked" class="w-100" style="box-shadow: 0px 25px 40px 3px rgba(0,0,0,0.45);"></app-facultylist>
+            <app-facultylist (regdataEvent)="receiveFacultylistData($event)" (facultyEditEvent)="receiveEditFacutyData($event)" (facultyEvent)="receiveCommonData($event)" (facultyReportEvent)="data($event)"  *ngIf="(receivedData.isFacultylistClicked)" class="w-100" style="box-shadow: 0px 25px 40px 3px rgba(0,0,0,0.45);"></app-facultylist>
             <app-register (regdataEvent)="receiveregData($event)" *ngIf="receivedData.isAddFacultyClicked" class="w-50" style="box-shadow: 0px 25px 40px 3px rgba(0,0,0,0.45);"></app-register>
             <app-register (regdataEvent)="receiveregData($event)" [editFacultyData]="editFacultyData" [editCommonData]="editCommonData" *ngIf="receivedData.isEditFacultyClicked" class="w-50" style="box-shadow: 0px 25px 40px 3px rgba(0,0,0,0.45);"></app-register>
             <app-studentreg (regdataEvent)="receiveStudentRegData($event)" (regStuDataEvent)="regStuDataEvent($event)" *ngIf="receivedData.isAddStudentClicked"></app-studentreg>
+            <app-addstudentmarks *ngIf="receivedData.isAddStudentMarksClicked" style="box-shadow: 0px 25px 40px 3px rgba(0,0,0,0.45);"></app-addstudentmarks>
+            <app-examreport [courseLevelReport]="courseLevelReport"  *ngIf="receivedData.isFacultyReportClicked"></app-examreport>
         </div>
     </div>
 </div>

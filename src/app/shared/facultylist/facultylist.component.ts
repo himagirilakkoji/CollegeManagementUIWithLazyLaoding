@@ -15,6 +15,7 @@ export class FacultylistComponent implements OnInit {
 
   @Output() facultyEditEvent = new EventEmitter<Facultylist>();
   @Output() facultyEvent = new EventEmitter<Sharedmodel>();
+  @Output() facultyReportEvent = new EventEmitter<{facultyUser:Facultylist,commondata :Sharedmodel,courselevelReport: any }>();
 
 
   constructor(private service : ServicesService, private spinnerservice: SpinnerService,){
@@ -36,6 +37,7 @@ export class FacultylistComponent implements OnInit {
        //delete currentfaculty
        this.service.deleteFacultyById(data.facultyID).subscribe(res => {
         if(res.response == "Success"){
+          alert("Suceessfully Faculty Deleted");
           this.service.getFacultyListdata().subscribe(res => {
             this.allfaculties = res.response;
             });
@@ -51,6 +53,18 @@ export class FacultylistComponent implements OnInit {
       this.facultyObj.isEditFacultyClicked = true;
       this.facultyEditEvent.emit(data);
       this.facultyEvent.emit(this.facultyObj);
+  }
+
+  showReport(data:any){
+        this.facultyObj.isAddStudentClicked = false;
+        this.facultyObj.isAddFacultyClicked = false;
+        this.facultyObj.isFacultylistClicked = false;
+        this.facultyObj.isStudentlistClicked = false;
+        this.facultyObj.isFacultyReportClicked = true;
+        this.facultyObj.isEditFacultyClicked = false;
+        this.service.getCourseLevelReportById(data.facultyID).subscribe(res=>{
+          this.facultyReportEvent.emit({ facultyUser: data, commondata:  this.facultyObj,courselevelReport: res });
+        });
   }
 
 }

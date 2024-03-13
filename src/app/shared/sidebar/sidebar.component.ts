@@ -22,6 +22,7 @@ export class SidebarComponent {
     this.adminbarbj.isAddStudentClicked = false;
     this.adminbarbj.isFacultylistClicked = false;
     this.adminbarbj.isStudentlistClicked = false;
+    this.adminbarbj.isAddStudentMarksClicked = false;
     this.dataEvent.emit(this.adminbarbj);
   }
 
@@ -30,6 +31,7 @@ export class SidebarComponent {
     this.adminbarbj.isStudentlistClicked = false;
     this.adminbarbj.isAddFacultyClicked = false;
     this.adminbarbj.isAddStudentClicked = false;
+    this.adminbarbj.isAddStudentMarksClicked = false;
     this.dataEvent.emit(this.adminbarbj);
   }
 
@@ -39,6 +41,7 @@ export class SidebarComponent {
     this.adminbarbj.isFacultylistClicked = false;
     this.adminbarbj.isStudentlistClicked = false;
     this.adminbarbj.isEditFacultyClicked = false;
+    this.adminbarbj.isAddStudentMarksClicked = false;
     this.dataEvent.emit(this.adminbarbj);
   }
 
@@ -48,7 +51,21 @@ export class SidebarComponent {
     this.adminbarbj.isAddFacultyClicked = false;
     this.adminbarbj.isAddStudentClicked = false;
     this.adminbarbj.isEditFacultyClicked = false;
+    this.adminbarbj.isAddStudentMarksClicked = false;
     this.dataEvent.emit(this.adminbarbj);
+  }
+
+  addStudentMarks(){
+    this.adminbarbj.isFacultylistClicked = false;
+    this.adminbarbj.isStudentlistClicked = false;
+    this.adminbarbj.isAddFacultyClicked = false;
+    this.adminbarbj.isAddStudentClicked = false;
+    this.adminbarbj.isEditFacultyClicked = false;
+    this.adminbarbj.isAddStudentMarksClicked = true;
+    this.dataEvent.emit(this.adminbarbj);
+  }
+
+  viewStudentMarks(){
   }
 
 }

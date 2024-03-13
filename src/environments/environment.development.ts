@@ -10,4 +10,6 @@ export const environment = {
     postStudentUrl:"Api/Admin/CreateStudent",
     getAllStudentUrl:"Api/Admin/GetAllStudents",
     deleteStudentByIdUrl:"Api/Admin/DeleteCurrentStudent",
+    postStudentExamMarksUrl:"Api/Admin/SaveStudentMarks",
+    getCourseLevelReportByIdUrl:"Api/Admin/CourseLevelReport",
 };

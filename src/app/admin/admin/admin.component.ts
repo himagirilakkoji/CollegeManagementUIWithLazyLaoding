@@ -4,6 +4,7 @@ import { loginAdminAction } from 'src/app/loginAction';
 import { Facultylist } from 'src/app/shared/models/facultylist';
 import { ServicesService } from 'src/app/shared/services.service';
 import { Sharedmodel } from 'src/app/shared/sharedmodel';
+import { CourseLevelReport } from '../models/courselevelreport';
 
 @Component({
   selector: 'app-admin',
@@ -14,7 +15,7 @@ export class AdminComponent {
   receivedData = new Sharedmodel();
   editCommonData = new Sharedmodel();
   editFacultyData = new Facultylist();
-  
+  courseLevelReport : CourseLevelReport[] = [];
   sessiondata: string = "";
 
   constructor(private _service: ServicesService, private _store: Store<{ data: { data: string } }>) 
@@ -67,6 +68,21 @@ export class AdminComponent {
 
   regStuDataEvent(data : any){
      this.receivedData = data
-  } 
+  }
+
+  receiveStudentMarksRegData(data : any){
+     this.receivedData = data
+  }
+
+  receiveFacultyReportData(data : any){
+    this.receivedData = data
+  }
+
+  data(data:any){
+    console.log(data);
+    this.editFacultyData = data.facultyUser;
+    this.receivedData = data.commondata;
+    this.courseLevelReport = data.courselevelReport;
+  }
 
 }

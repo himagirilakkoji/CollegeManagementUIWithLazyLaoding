@@ -5,4 +5,6 @@ export class Sharedmodel {
     isFacultylistClicked: boolean = false;
     isStudentlistClicked: boolean = false;
     isEditFacultyClicked: boolean = false;
+    isAddStudentMarksClicked: boolean = false;
+    isFacultyReportClicked: boolean = false;
 }

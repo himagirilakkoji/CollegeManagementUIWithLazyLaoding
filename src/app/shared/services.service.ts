@@ -66,5 +66,17 @@ export class ServicesService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.delete<any>(`${apiUrl}/${userid}`);
   }
-
+  
+  postStudentExamMarks(data: any): Observable<any> {
+    const apiUrl = environment.apiUrl+environment.postStudentExamMarksUrl;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post<any>(apiUrl, data, { headers });
+  }
+  
+  getCourseLevelReportById(userid:any): Observable<any> {
+    const apiUrl = environment.apiUrl+environment.getCourseLevelReportByIdUrl;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.get<any>(`${apiUrl}/${userid}`);
+  }
+  
 }
