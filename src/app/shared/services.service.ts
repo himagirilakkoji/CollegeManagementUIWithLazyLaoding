@@ -15,67 +15,61 @@ export class ServicesService {
 
   postAdmin(data: any): Observable<any> {
     const apiUrl = environment.apiUrl+environment.postLoginValidationUrl;
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<any>(apiUrl, data, { headers });
+    return this.http.post<any>(apiUrl, data);
   }
 
   postFaculty(data: any): Observable<any> {
     const apiUrl = environment.apiUrl+environment.postFacultyUrl;
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<any>(apiUrl, data, { headers });
+    return this.http.post<any>(apiUrl, data);
   }
 
   getDepartmentdata(): Observable<any> {
     const apiUrl = environment.apiUrl+environment.getDepartmentDetailsUrl;
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.get<any>(apiUrl);
   }
 
   getFacultyListdata(): Observable<any> {
     const apiUrl = environment.apiUrl+environment.getFacultyListUrl;
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.get<any>(apiUrl);
   }
 
   deleteFacultyById(userid:any): Observable<any> {
     const apiUrl = environment.apiUrl+environment.deleteFacultyByIdUrl;
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.delete<any>(`${apiUrl}/${userid}`);
   }
 
   updateFacultyById(userid:any,data:any): Observable<any> {
     const apiUrl = environment.apiUrl+environment.updateFacultyByIdUrl;
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.put<any>(`${apiUrl}/${userid}`, data, { headers });
+    return this.http.put<any>(`${apiUrl}/${userid}`, data);
   }
 
   postStudent(data: any): Observable<any> {
     const apiUrl = environment.apiUrl+environment.postStudentUrl;
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<any>(apiUrl, data, { headers });
+    return this.http.post<any>(apiUrl, data);
   }
 
   getStudentListdata(): Observable<any> {
     const apiUrl = environment.apiUrl+environment.getAllStudentUrl;
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.get<any>(apiUrl);
   }
 
   deleteStudentById(userid:any): Observable<any> {
     const apiUrl = environment.apiUrl+environment.deleteStudentByIdUrl;
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.delete<any>(`${apiUrl}/${userid}`);
   }
   
   postStudentExamMarks(data: any): Observable<any> {
     const apiUrl = environment.apiUrl+environment.postStudentExamMarksUrl;
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<any>(apiUrl, data, { headers });
+    return this.http.post<any>(apiUrl, data);
   }
   
   getCourseLevelReportById(userid:any): Observable<any> {
     const apiUrl = environment.apiUrl+environment.getCourseLevelReportByIdUrl;
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.get<any>(`${apiUrl}/${userid}`);
+  }
+
+  getSubjectLevelReportById(userid:any): Observable<any> {
+    const apiUrl = environment.apiUrl+environment.getSubjectLevelReportByIdUrl;
     return this.http.get<any>(`${apiUrl}/${userid}`);
   }
   

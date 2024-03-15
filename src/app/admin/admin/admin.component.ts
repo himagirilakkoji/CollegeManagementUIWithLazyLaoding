@@ -15,6 +15,7 @@ export class AdminComponent {
   receivedData = new Sharedmodel();
   editCommonData = new Sharedmodel();
   editFacultyData = new Facultylist();
+  currentFacultyUser = new Facultylist();
   courseLevelReport : CourseLevelReport[] = [];
   sessiondata: string = "";
 
@@ -78,11 +79,20 @@ export class AdminComponent {
     this.receivedData = data
   }
 
-  data(data:any){
+  facultyReportEvent(data:any){
     console.log(data);
     this.editFacultyData = data.facultyUser;
+    this.currentFacultyUser = data.facultyUser;
     this.receivedData = data.commondata;
     this.courseLevelReport = data.courselevelReport;
+  }
+
+  facultyCourseLevelReport(data:any){
+    this.receivedData = data;
+  }
+
+  facultySubjectReportEvent(data:any){
+    this.receivedData = data;
   }
 
 }

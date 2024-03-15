@@ -90,7 +90,7 @@ export class AddstudentmarksComponent {
          this.studentExamMarksForm.controls['branch'].patchValue('Select menu');
          this.studentExamMarksForm.controls['semester'].patchValue('Select menu');
          this.studentExamMarksForm.controls['classroom'].patchValue('Select menu');
-         //this.studentExamMarksForm.controls['subjects'].reset();
+         this.studentExamMarksForm.controls['subjects'].reset();
       });
   }
 
@@ -103,17 +103,17 @@ export class AddstudentmarksComponent {
   }
 
   onClassSelect(data:any){
-    this.clearSubjects();
+    //this.clearSubjects();
   }
 
-  clearSubjects() {
-    const subjectsFormGroup = this.studentExamMarksForm.get('subjects') as FormGroup;
-    Object.keys(subjectsFormGroup.controls).forEach(key => {
-        setTimeout(() => {
-            subjectsFormGroup.controls[key].setValue('');
-        }, 0);
-    });
-}
+  // clearSubjects() {
+  //   const subjectsFormGroup = this.studentExamMarksForm.get('subjects') as FormGroup;
+  //   Object.keys(subjectsFormGroup.controls).forEach(key => {
+  //       setTimeout(() => {
+  //           subjectsFormGroup.controls[key].setValue('');
+  //       }, 0);
+  //   });
+//}
 
 
 

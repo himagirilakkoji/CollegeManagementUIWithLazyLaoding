@@ -1,5 +1,6 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Chart } from 'chart.js';
+import { Sharedmodel } from '../sharedmodel';
 
 @Component({
   selector: 'app-examreport',
@@ -8,12 +9,15 @@ import { Chart } from 'chart.js';
 })
 export class ExamreportComponent implements OnInit {
   chart: any;
-  courseReport : any[] = [];
+  courseReport: any[] = [];
   @Input() courseLevelReport: any;
+  @Output() facultyCourseReportEvent = new EventEmitter<Sharedmodel>();
+
+  sharedmodel = new Sharedmodel()
 
 
   ngOnChanges(changes: SimpleChanges) {
-      this.courseReport = this.courseLevelReport;
+    this.courseReport = this.courseLevelReport;
   }
 
   ngOnInit() {
@@ -23,39 +27,64 @@ export class ExamreportComponent implements OnInit {
     let totalAverageMarks = averageMarks.reduce((acc, val) => acc + val, 0);
     let overallPercentage = (totalAverageMarks / (averageMarks.length * 100)) * 100;
 
-this.chart = new Chart('canvas', {
-  type: 'bar',
-  data: {
-    labels: [...names, 'Overall'],
-    datasets: [
-      {
-        label: 'Course',
-        data: [...averageMarks, overallPercentage],
-        backgroundColor: [...Array(names.length).fill('rgba(54, 162, 235, 0.6)'), 'rgba(255, 99, 132, 0.6)']
+    this.chart = new Chart('canvas', {
+      type: 'bar',
+      data: {
+        labels: [...names, 'Overall'],
+        datasets: [
+          {
+            label: 'Course',
+            data: [...averageMarks, overallPercentage],
+            backgroundColor: [...Array(names.length).fill('rgba(54, 162, 235, 0.6)'), 'rgba(255, 99, 132, 0.6)']
+          }
+        ]
+      },
+      options: {
+        scales: {
+          xAxes: [{
+            scaleLabel: {
+              display: true,
+              labelString: 'Exams'
+            }
+          }],
+          yAxes: [{
+            scaleLabel: {
+              display: true,
+              labelString: 'CourseLevelAverage'
+            },
+            ticks: {
+              beginAtZero: true,
+              max: 100
+            }
+          }]
+        }
       }
-    ]
-  },
-  options: {
-    scales: {
-      xAxes: [{
-        scaleLabel: {
-          display: true,
-          labelString: 'Exams'
-        }
-      }],
-      yAxes: [{
-        scaleLabel: {
-          display: true,
-          labelString: 'CourseLevelAverage'
-        },
-        ticks: {
-          beginAtZero: true,
-          max: 100
-        }
-      }]
-    }
-  }
-});
+    });
 
+  }
+
+  navigateToFacultyList(){
+    this.sharedmodel.isAddFacultyClicked = false;
+    this.sharedmodel.isAddStudentClicked = false;
+    this.sharedmodel.isEditFacultyClicked = false;
+    this.sharedmodel.isFacultylistClicked = true;
+    this.sharedmodel.isStudentlistClicked = false;
+    this.sharedmodel.isRegitrtionPageClicked = false;
+    this.sharedmodel.isAddStudentMarksClicked = false;
+    this.sharedmodel.isFacultyReportClicked = false;
+    this.facultyCourseReportEvent.emit(this.sharedmodel);
+  }
+
+  navigateToSubjectLevelReport(){
+    this.sharedmodel.isAddFacultyClicked = false;
+    this.sharedmodel.isAddStudentClicked = false;
+    this.sharedmodel.isEditFacultyClicked = false;
+    this.sharedmodel.isFacultylistClicked = false;
+    this.sharedmodel.isStudentlistClicked = false;
+    this.sharedmodel.isRegitrtionPageClicked = false;
+    this.sharedmodel.isAddStudentMarksClicked = false;
+    this.sharedmodel.isFacultyReportClicked = false;
+    this.sharedmodel.isSubjectReportClicked = true;
+    this.facultyCourseReportEvent.emit(this.sharedmodel);
   }
 }

@@ -17,6 +17,7 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { StudentregisterComponent } from './studentregister/studentregister.component';
 import { ExamreportComponent } from './examreport/examreport.component';
 import { AddstudentmarksComponent } from './addstudentmarks/addstudentmarks.component';
+import { ExamstudentlevelreportComponent } from './examstudentlevelreport/examstudentlevelreport.component';
 
 
 
@@ -31,6 +32,7 @@ import { AddstudentmarksComponent } from './addstudentmarks/addstudentmarks.comp
     StudentregisterComponent,
     ExamreportComponent,
     AddstudentmarksComponent,
+    ExamstudentlevelreportComponent,
   ],
   imports: [
     CommonModule,
@@ -41,7 +43,7 @@ import { AddstudentmarksComponent } from './addstudentmarks/addstudentmarks.comp
   ],
   exports: [RegisterComponent,LoaderComponent,TopbarComponent,SidebarComponent,FormsModule,
     ReactiveFormsModule ,StudentlistComponent,
-    FacultylistComponent,StudentregisterComponent,ExamreportComponent,AddstudentmarksComponent],
+    FacultylistComponent,StudentregisterComponent,ExamreportComponent,AddstudentmarksComponent,ExamstudentlevelreportComponent],
   providers: [LoginGuard,ServicesService,SpinnerService,{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi:true},
                                              {provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi:true}]
 })

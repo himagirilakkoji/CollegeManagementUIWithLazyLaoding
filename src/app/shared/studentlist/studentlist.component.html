@@ -17,8 +17,16 @@
           <td>{{user.lastName}}</td>
           <td>{{user.userName}}</td>
           <td>{{user.email}}</td>
-          <td (click)="editUser(user)"><i class="fas fa-edit"></i></td>
-          <td (click)="deleteUser(user)"><i class="fa-solid fa-trash"></i></td>
+          <td (click)="editUser(user)">
+            <button class="fa-override faa-parent faa-slow animated-hover" (click)="editUser(user)">
+              <i class="fas fa-edit text-primary"></i>
+            </button>
+          </td>
+          <td>
+            <button class="fa-override faa-parent faa-slow animated-hover" (click)="deleteUser(user)">
+              <i class="fa-solid fa-trash text-primary"></i>
+            </button>
+          </td>
       </tr>
   </tbody>
 </table>
