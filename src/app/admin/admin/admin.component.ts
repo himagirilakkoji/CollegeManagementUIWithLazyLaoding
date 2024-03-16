@@ -20,9 +20,7 @@ export class AdminComponent {
   sessiondata: string = "";
 
   constructor(private _service: ServicesService, private _store: Store<{ data: { data: string } }>) 
-  {
-     this.receiveData
-  }
+  {}
 
   ngOnInit() {
     this._store.select('data').subscribe(res => {

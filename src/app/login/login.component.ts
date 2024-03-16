@@ -7,6 +7,11 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { loginAdminAction, loginFacultyAction, loginStudentAction } from '../loginAction';
 import { Observable } from 'rxjs';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrService } from 'ngx-toastr';
+import { NotificationtoasterService } from '../shared/notificationtoaster.service';
+import { FieldValidationPattern } from '../shared/validationpatterns/FieldValidationPattern';
+
 
 @Component({
   selector: 'app-login',
@@ -18,7 +23,7 @@ export class LoginComponent implements OnInit {
   loginobj = new Login();
 
   constructor(private formBuilder: FormBuilder, private service: ServicesService, private spinnerservice: SpinnerService, private router: Router, private _store: Store<{ data: { data: string } }>,
-  ) {
+    private toastr: NotificationtoasterService) {
 
   }
 
@@ -28,7 +33,7 @@ export class LoginComponent implements OnInit {
 
   buildForm() {
     this.loginForm = this.formBuilder.group({
-      email: new FormControl("", [Validators.required,]),
+      email: new FormControl("", [Validators.required,Validators.pattern(FieldValidationPattern.EmailValidationPattern)]),
       password: new FormControl("", [Validators.required])
     });
 
@@ -41,9 +46,34 @@ export class LoginComponent implements OnInit {
       if (res != null && res.adminDetails.roleName == "Admin") {
         console.log("login", res.adminDetails.roleName);
         this._store.dispatch(loginAdminAction());
-        alert("User Login Sucess");
-        this.router.navigateByUrl('/adminDashboard');
+        this.toastr.loginSuccess('User Login Sucess');
       }
-    })
+      if (res != null && res.adminDetails.roleName == "Faculty") {
+        console.log("login", res.adminDetails.roleName);
+        this._store.dispatch(loginFacultyAction());
+        this.toastr.loginSuccess('User Login Sucess');
+      }
+      if (res != null && res.adminDetails.roleName == "Student") {
+        console.log("login", res.adminDetails.roleName);
+        this._store.dispatch(loginStudentAction());
+        this.toastr.loginSuccess('User Login Sucess');
+      }
+      if(res == null){
+        this.toastr.Error("Something Went Wrong");
+      }
+    },
+    (error) => {
+      if (error.status === 401) {
+        this.toastr.Error("Unauthorized");
+      } else if (error.status === 404) {
+        this.toastr.Error("Not Found");
+      } else if (error.status === 500) {
+        this.toastr.Error("Internal Server Error");
+      } else {
+        this.toastr.Error("An error occurred");
+      }
+    }
+    
+    )
   }
 }

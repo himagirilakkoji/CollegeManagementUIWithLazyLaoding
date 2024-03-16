@@ -1,5 +1,5 @@
 <div class="center">
-    <div class="card m-3">
+    <div class="card m-3 faculty-card">
         <h4 class="card-header">{{registerobj.isEditFacultyClicked ? 'Update' : 'Register'}}</h4>
         <div class="card-body">
             <form [formGroup]="registerForm" class="register-form w-100">
@@ -8,11 +8,25 @@
                         <label for="firstName" class="fw-bold">First Name :</label>
                         <input name="firstName" type="text" class="form-control" placeholder="Enter Your First Name"
                             formControlName="firstName">
+                        <div class="validation-msg"
+                            *ngIf="registerForm.controls['firstName'].invalid &&(registerForm.controls['firstName'].touched||registerForm.controls['firstName'].dirty)">
+                            <div
+                                *ngIf="registerForm.controls['firstName'].hasError('required') && !registerForm.controls['firstName'].valid">
+                                First Name is required
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group col-6 mb-3">
                         <label for="lastName" class="fw-bold">Last Name :</label>
                         <input name="lastName" type="text" class="form-control" placeholder="Enter Your Last Name"
                             formControlName="lastName">
+                        <div class="validation-msg"
+                            *ngIf="registerForm.controls['lastName'].invalid &&(registerForm.controls['lastName'].touched||registerForm.controls['lastName'].dirty)">
+                            <div
+                                *ngIf="registerForm.controls['lastName'].hasError('required') && !registerForm.controls['lastName'].valid">
+                                Last Name is required
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
@@ -20,46 +34,86 @@
                         <label for="email" class="fw-bold">Email ID :</label>
                         <input name="email" type="text" class="form-control" placeholder="Enter Your Eamil ID"
                             formControlName="email">
+                        <div class="validation-msg"
+                            *ngIf="registerForm.controls['email'].invalid &&(registerForm.controls['email'].touched||registerForm.controls['email'].dirty)">
+                            <div
+                                *ngIf="registerForm.controls['email'].hasError('required') && !registerForm.controls['email'].valid">
+                                Email Address is required
+                            </div>
+                            <div *ngIf="registerForm.controls['email'].hasError('pattern')">
+                                Email is invalid
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group col-6 mb-3">
                         <label for="password" class="fw-bold">Password :</label>
                         <input name="password" type="password" class="form-control" placeholder="Enter Your Password"
                             formControlName="password">
+                        <div class="validation-msg"
+                            *ngIf="registerForm.controls['password'].invalid &&(registerForm.controls['password'].touched||registerForm.controls['password'].dirty)">
+                            <div
+                                *ngIf="registerForm.controls['password'].hasError('required') && !registerForm.controls['password'].valid">
+                                Password is required
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
                     <!-- Department Dropdown-->
                     <div class="form-group col-6">
                         <label for="roles" class="fw-bold">Department :</label>
-                        <select name="roles" #selectElement formControlName="dept" class="form-select" aria-label="Default select example" (change)="onDepartmentSelect($event)">
-                            <option selected>Select menu</option>
-                            <option  *ngFor="let dept of departments" value="{{dept}}">
+                        <select name="roles" #selectElement formControlName="dept" class="form-select"
+                            aria-label="Default select example" (change)="onDepartmentSelect($event)">
+                            <option value="" selected>Select menu</option>
+                            <option *ngFor="let dept of departments" value="{{dept}}">
                                 {{dept}}</option>
                         </select>
+                        <div class="validation-msg"
+                            *ngIf="registerForm.controls['dept'].invalid && (registerForm.controls['dept'].touched || registerForm.controls['dept'].dirty)">
+                            <div
+                                *ngIf="registerForm.controls['dept'].hasError('required') && !registerForm.controls['dept'].valid">
+                                Department is required
+                            </div>
+                        </div>
                     </div>
                     <!-- Course Dropdown-->
                     <div class="form-group col-6 mb-3">
                         <div>
                             <label class="fw-bold">Course :</label>
-                            <ng-multiselect-dropdown #ngmultiselectcoursedropdownElement [placeholder]="'Select Your Item'" [settings]="dropdownCourseSettings"
-                                [data]="dropdownCourseList" formControlName="courses" (onSelect)="onCourseSelect($event)"
-                                (onSelectAll)="onSelectAll($event)" (onDeSelect)="onItemCourseDeSelect($event)"
-                                (onDeSelectAll)="onUnSelectAll()">
+                            <ng-multiselect-dropdown #ngmultiselectcoursedropdownElement
+                                [placeholder]="'Select Your Item'" [settings]="dropdownCourseSettings"
+                                [data]="dropdownCourseList" formControlName="courses"
+                                (onSelect)="onCourseSelect($event)" (onSelectAll)="onSelectAll($event)"
+                                (onDeSelect)="onItemCourseDeSelect($event)" (onDeSelectAll)="onUnSelectAll()">
                             </ng-multiselect-dropdown>
+                            <div class="validation-msg"
+                                *ngIf="registerForm.controls['courses'].invalid && (registerForm.controls['courses'].touched || registerForm.controls['courses'].dirty)">
+                                <div
+                                    *ngIf="registerForm.controls['courses'].hasError('required') && !registerForm.controls['courses'].valid">
+                                    Courses is required
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <!-- Subject Dropdown-->
                 <div class="form-group col-6 mb-3">
                     <label for="roles" class="fw-bold">Subject :</label>
-                    <ng-multiselect-dropdown #ngmultiselectsubjectdropdownElement [placeholder]="'Select Your Item'" [settings]="dropdownSubjectSettings"
-                        [data]="dropdownSubjectList" formControlName="subjects"   (onSelect)="onItemSubjectSelect($event)"
-                        (onSelectAll)="onSelectAll($event)" (onDeSelect)="onItemSubjectDeSelect($event)"
-                        (onDeSelectAll)="onUnSelectAll()">
+                    <ng-multiselect-dropdown #ngmultiselectsubjectdropdownElement [placeholder]="'Select Your Item'"
+                        [settings]="dropdownSubjectSettings" [data]="dropdownSubjectList" formControlName="subjects"
+                        (onSelect)="onItemSubjectSelect($event)" (onSelectAll)="onSelectAll($event)"
+                        (onDeSelect)="onItemSubjectDeSelect($event)" (onDeSelectAll)="onUnSelectAll()">
                     </ng-multiselect-dropdown>
+                    <div class="validation-msg"
+                        *ngIf="registerForm.controls['subjects'].invalid && (registerForm.controls['subjects'].touched || registerForm.controls['subjects'].dirty)">
+                        <div
+                            *ngIf="registerForm.controls['subjects'].hasError('required') && !registerForm.controls['subjects'].valid">
+                            Subjects is required
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group">
-                    <button class="btn btn-primary" (click)="registerobj.isEditFacultyClicked ?  update() : submit()">
+                    <button class="btn btn-primary" [disabled]="!registerForm.valid" (click)="registerobj.isEditFacultyClicked ?  update() : submit()">
                         {{registerobj.isEditFacultyClicked ? 'Update' : 'Submit'}}
                     </button>
                     <a class="btn btn-link" (click)="close()">Cancel</a>

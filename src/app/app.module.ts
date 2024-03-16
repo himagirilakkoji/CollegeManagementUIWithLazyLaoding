@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { loginReducer} from './loginReducer'
 import { StoreModule } from '@ngrx/store';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    BrowserAnimationsModule,
     StoreModule.forRoot({data:loginReducer}),
     NgMultiSelectDropDownModule.forRoot(),
   ],

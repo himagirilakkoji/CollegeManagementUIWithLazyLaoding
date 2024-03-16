@@ -1,3 +1,4 @@
+<div class="table-container">
 <table class="table">
     <thead class="table-dark">
         <tr>
@@ -13,7 +14,7 @@
           </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let user of allfaculties; let i = index">
+        <tr *ngFor="let user of allfaculties | paginate: { id:'listing_pagination', itemsPerPage: itemsPerPage, currentPage: page, totalItems: pageSize }; let i = index">
             <th scope="row">{{i+1}}</th>
             <td>{{user.firstName}}</td>
             <td>{{user.lastName}}</td>
@@ -36,3 +37,8 @@
         </tr>
     </tbody>
   </table>
+  <div class="col d-flex justify-content-end">
+    <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="handlePageChange($event)" id="listing_pagination"></pagination-controls>
+  </div>
+</div>
+

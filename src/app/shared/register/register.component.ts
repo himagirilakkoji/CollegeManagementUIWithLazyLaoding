@@ -9,6 +9,7 @@ import { Facultycreate } from '../models/facultycreate';
 import { Facultylist } from '../models/facultylist';
 import { SpinnerService } from '../spinner.service';
 import { Observable } from 'rxjs';
+import { FieldValidationPattern } from '../validationpatterns/FieldValidationPattern';
 
 @Component({
   selector: 'app-register',
@@ -146,9 +147,9 @@ export class RegisterComponent implements OnInit, OnChanges {
     this.registerForm = this.formBuilder.group({
       firstName: new FormControl("", [Validators.required,]),
       lastName: new FormControl("", [Validators.required]),
-      email: new FormControl("", [Validators.required]),
+      email: new FormControl("", [Validators.required,Validators.pattern(FieldValidationPattern.EmailValidationPattern)]),
       password: new FormControl({ value: '', disabled: this.registerobj.isEditFacultyClicked }, [Validators.required]),
-      dept: new FormControl("Select menu", [Validators.required]),
+      dept: new FormControl("", [Validators.required]),
       courses: new FormControl("", [Validators.required]),
       subjects: new FormControl("", [Validators.required])
     });

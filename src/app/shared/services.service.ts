@@ -33,6 +33,11 @@ export class ServicesService {
     return this.http.get<any>(apiUrl);
   }
 
+  getFacultyListdataByPagination(pageNumber:number,pageSize:number): Observable<any> {
+    const apiUrl = environment.apiUrl+environment.getFacultyWithPaginationListUrl;
+    return this.http.get<any>(`${apiUrl}/${pageNumber}/${pageSize}`);
+  }
+
   deleteFacultyById(userid:any): Observable<any> {
     const apiUrl = environment.apiUrl+environment.deleteFacultyByIdUrl;
     return this.http.delete<any>(`${apiUrl}/${userid}`);

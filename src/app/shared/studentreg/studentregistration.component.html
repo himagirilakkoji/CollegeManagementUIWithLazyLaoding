@@ -1,0 +1,107 @@
+<div class="center">
+    <div class="card m-3 student-card">
+        <h4 class="card-header">Student Registration</h4>
+        <div class="card-body">
+            <form [formGroup]="studentRegisterForm" class="register-form w-100">
+                <div class="row">
+                    <div class="form-group col-6">
+                        <label for="firstName" class="fw-bold">First Name :</label>
+                        <input name="firstName" type="text" class="form-control" placeholder="Enter Your First Name"
+                            formControlName="firstName" required>
+                        <div class="validation-msg"
+                            *ngIf="studentRegisterForm.controls['firstName'].invalid &&(studentRegisterForm.controls['firstName'].touched||studentRegisterForm.controls['firstName'].dirty)">
+                            <div
+                                *ngIf="studentRegisterForm.controls['firstName'].hasError('required') && !studentRegisterForm.controls['firstName'].valid">
+                                First Name is required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-6 mb-3">
+                        <label for="lastName" class="fw-bold">Last Name :</label>
+                        <input name="lastName" type="text" class="form-control" placeholder="Enter Your Last Name"
+                            formControlName="lastName" required>
+                        <div class="validation-msg"
+                            *ngIf="studentRegisterForm.controls['lastName'].invalid &&(studentRegisterForm.controls['lastName'].touched||studentRegisterForm.controls['lastName'].dirty)">
+                            <div
+                                *ngIf="studentRegisterForm.controls['lastName'].hasError('required') && !studentRegisterForm.controls['lastName'].valid">
+                                Last Name is required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-6">
+                        <label for="email" class="fw-bold">Email ID :</label>
+                        <input name="email" type="text" class="form-control" placeholder="Enter Your Eamil ID"
+                            formControlName="email" required>
+                        <div class="validation-msg"
+                            *ngIf="studentRegisterForm.controls['email'].invalid &&(studentRegisterForm.controls['email'].touched||studentRegisterForm.controls['email'].dirty)">
+                            <div
+                                *ngIf="studentRegisterForm.controls['email'].hasError('required') && !studentRegisterForm.controls['email'].valid">
+                                Email Address is required
+                            </div>
+                            <div *ngIf="studentRegisterForm.controls['email'].hasError('pattern')">
+                                Email is invalid
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-6 mb-3">
+                        <label for="password" class="fw-bold">Password :</label>
+                        <input name="password" type="password" class="form-control" placeholder="Enter Your Password"
+                            formControlName="password" required>
+                        <div class="validation-msg"
+                            *ngIf="studentRegisterForm.controls['password'].invalid &&(studentRegisterForm.controls['password'].touched||studentRegisterForm.controls['password'].dirty)">
+                            <div
+                                *ngIf="studentRegisterForm.controls['password'].hasError('required') && !studentRegisterForm.controls['password'].valid">
+                                Password is required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- Branch Dropdown-->
+                    <div class="form-group col-6  mb-3">
+                        <label for="roles" class="fw-bold">Branch :</label>
+                        <select name="roles" formControlName="branch" class="form-select"
+                            aria-label="Default select example" (change)="onBranchSelect($event)" required>
+                            <option value="" selected>Select menu</option>
+                            <option *ngFor="let branch of branches" value="{{branch}}">
+                                {{branch}}</option>
+                        </select>
+                        <div class="validation-msg"
+                            *ngIf="studentRegisterForm.controls['branch'].invalid && (studentRegisterForm.controls['branch'].touched || studentRegisterForm.controls['branch'].dirty)">
+                            <div
+                                *ngIf="studentRegisterForm.controls['branch'].hasError('required') && !studentRegisterForm.controls['branch'].valid">
+                                Branch is required
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Faculty Dropdown-->
+                    <div class="form-group col-6  mb-3">
+                        <label for="faculty" class="fw-bold">Faculty :</label>
+                        <select name="faculty" formControlName="faculty" class="form-select"
+                            aria-label="Default select example" (change)="onFacultySelect($event)" required>
+                            <option value="" selected>Select menu</option>
+                            <option *ngFor="let username of studentFaculty" value="{{username}}">
+                                {{username}}</option>
+                        </select>
+                        <div class="validation-msg"
+                            *ngIf="studentRegisterForm.controls['faculty'].invalid && (studentRegisterForm.controls['faculty'].touched || studentRegisterForm.controls['faculty'].dirty)">
+                            <div
+                                *ngIf="studentRegisterForm.controls['faculty'].hasError('required') && !studentRegisterForm.controls['faculty'].valid">
+                                Faculty is required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary" (click)="submit()" [disabled]="!studentRegisterForm.valid">
+                        Submit
+                    </button>
+                    <a class="btn btn-link" (click)="close()">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

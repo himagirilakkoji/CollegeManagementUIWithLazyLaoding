@@ -18,6 +18,10 @@ import { StudentregisterComponent } from './studentregister/studentregister.comp
 import { ExamreportComponent } from './examreport/examreport.component';
 import { AddstudentmarksComponent } from './addstudentmarks/addstudentmarks.component';
 import { ExamstudentlevelreportComponent } from './examstudentlevelreport/examstudentlevelreport.component';
+import { ToastrModule } from 'ngx-toastr';
+import { NotificationtoasterService } from './notificationtoaster.service';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { StudentRegistrationComponent } from './studentreg/studentregistration.component';
 
 
 
@@ -33,18 +37,26 @@ import { ExamstudentlevelreportComponent } from './examstudentlevelreport/examst
     ExamreportComponent,
     AddstudentmarksComponent,
     ExamstudentlevelreportComponent,
+    StudentRegistrationComponent,
   ],
   imports: [
     CommonModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    ToastrModule.forRoot(
+      {
+        timeOut: 1000,
+        preventDuplicates: true
+      }
+    ),
+    NgxPaginationModule,
     NgMultiSelectDropDownModule.forRoot(),
   ],
   exports: [RegisterComponent,LoaderComponent,TopbarComponent,SidebarComponent,FormsModule,
-    ReactiveFormsModule ,StudentlistComponent,
+    ReactiveFormsModule ,StudentlistComponent,StudentRegistrationComponent,
     FacultylistComponent,StudentregisterComponent,ExamreportComponent,AddstudentmarksComponent,ExamstudentlevelreportComponent],
-  providers: [LoginGuard,ServicesService,SpinnerService,{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi:true},
+  providers: [LoginGuard,ServicesService,SpinnerService,NotificationtoasterService,{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi:true},
                                              {provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi:true}]
 })
 export class SharedModule { }
