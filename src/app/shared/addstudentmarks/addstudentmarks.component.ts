@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ServicesService } from '../services.service';
 import { Department, Subject } from '../models/department';
 import { ClassRoom, Semester, StudentMarks, Subjects } from '../models/studentmarks';
 import { NgZone } from '@angular/core';
+import { FieldValidationPattern } from '../validationpatterns/FieldValidationPattern';
+import { Sharedmodel } from '../sharedmodel';
 
 @Component({
   selector: 'app-addstudentmarks',
@@ -20,6 +22,8 @@ export class AddstudentmarksComponent {
   studentMarks = new StudentMarks();
   semester :Semester[] = [];
   classRoom :ClassRoom[] = [];
+
+  @Output() reprtdataEvent = new EventEmitter<Sharedmodel>();
 
   constructor(private formBuilder: FormBuilder,private _service: ServicesService,private zone: NgZone){
     this.semester = [{ name: 'Midterm' },{ name: 'Final' }];
@@ -38,9 +42,9 @@ export class AddstudentmarksComponent {
   buildForm() {
     this.studentExamMarksForm = this.formBuilder.group({
       studentName: new FormControl("", [Validators.required,]),
-      branch: new FormControl("Select menu", [Validators.required]),
-      semester: new FormControl("Select menu", [Validators.required]),
-      classroom: new FormControl("Select menu", [Validators.required]),
+      branch: new FormControl("", [Validators.required]),
+      semester: new FormControl("", [Validators.required]),
+      classroom: new FormControl("", [Validators.required]),
       subjects: this.formBuilder.group({})
     });
   }
@@ -59,7 +63,7 @@ export class AddstudentmarksComponent {
         subjectsFormGroup.removeControl(key);
       });
       this.allSubjects.forEach((subject:any) => {
-        subjectsFormGroup.addControl(subject.subjectName, new FormControl('', Validators.required));
+        subjectsFormGroup.addControl(subject.subjectName, new FormControl('', [Validators.required,Validators.pattern(FieldValidationPattern.NumberPattern)]));
       });
     }
   }
@@ -95,7 +99,8 @@ export class AddstudentmarksComponent {
   }
 
   Cancel(){
-
+     let facultyReport = new Sharedmodel();
+     this.reprtdataEvent.emit(facultyReport);
   }
 
   onSemesterSelect(data:any){
@@ -105,16 +110,4 @@ export class AddstudentmarksComponent {
   onClassSelect(data:any){
     //this.clearSubjects();
   }
-
-  // clearSubjects() {
-  //   const subjectsFormGroup = this.studentExamMarksForm.get('subjects') as FormGroup;
-  //   Object.keys(subjectsFormGroup.controls).forEach(key => {
-  //       setTimeout(() => {
-  //           subjectsFormGroup.controls[key].setValue('');
-  //       }, 0);
-  //   });
-//}
-
-
-
 }

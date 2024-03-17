@@ -10,7 +10,7 @@ import { Facultylist } from '../models/facultylist';
 import { SpinnerService } from '../spinner.service';
 import { Observable } from 'rxjs';
 import { FieldValidationPattern } from '../validationpatterns/FieldValidationPattern';
-
+import { NotificationtoasterService } from '../notificationtoaster.service';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -44,7 +44,7 @@ export class RegisterComponent implements OnInit, OnChanges {
   previousCourseData: any = [];
 
   constructor(private formBuilder: FormBuilder, private router: Router,
-    private _service: ServicesService, private cdr: ChangeDetectorRef, private spinnerservice: SpinnerService) {
+    private _service: ServicesService, private cdr: ChangeDetectorRef, private spinnerservice: SpinnerService,private _toaster:NotificationtoasterService) {
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -70,6 +70,17 @@ export class RegisterComponent implements OnInit, OnChanges {
           this.registerForm.controls['email'].patchValue(this.updateFacultyobj.email);
           this.registerForm.controls['dept'].setValue(this.updateFacultyobj.dept);
           this.editFacultyChanges(this.updateFacultyobj,);
+        }
+      },
+      (error) => {
+        if (error.status === 401) {
+          this._toaster.Error("Unauthorized");
+        } else if (error.status === 404) {
+          this._toaster.Error("Not Found");
+        } else if (error.status === 500) {
+          this._toaster.Error("Internal Server Error");
+        } else {
+          this._toaster.Error("An error occurred");
         }
       });
     }
@@ -145,7 +156,7 @@ export class RegisterComponent implements OnInit, OnChanges {
 
   buildForm() {
     this.registerForm = this.formBuilder.group({
-      firstName: new FormControl("", [Validators.required,]),
+      firstName: new FormControl("", [Validators.required]),
       lastName: new FormControl("", [Validators.required]),
       email: new FormControl("", [Validators.required,Validators.pattern(FieldValidationPattern.EmailValidationPattern)]),
       password: new FormControl({ value: '', disabled: this.registerobj.isEditFacultyClicked }, [Validators.required]),
@@ -219,22 +230,33 @@ export class RegisterComponent implements OnInit, OnChanges {
     console.log(this.facultyCreateobj.subjectRequests);
     this._service.postFaculty(this.facultyCreateobj).subscribe(res => {
       if (res.response == "Success") {
-        alert("Suceessfully new Faculty Created");
-        this.registerForm.controls['firstName'].patchValue('');
-        this.registerForm.controls['lastName'].patchValue('');
-        this.registerForm.controls['email'].patchValue('');
-        this.registerForm.controls['password'].patchValue('');
-        this.registerForm.controls['dept'].patchValue('Select menu');
+        this._toaster.Success("Suceessfully new Faculty Created");
+        this.registerForm.reset();
+        this.registerForm.controls['dept'].patchValue('');
         let restcourse: any[] = [];
         this.dropdownCourseList =[...restcourse];
-        this.registerForm.controls['courses'].setValue(this.dropdownCourseList);
+        this.registerForm.controls['courses'].patchValue('');
+        this.registerForm.controls['courses'].setErrors(null);
+        // Example: Reset the selected items
   
         let restsubj: any[] = [];
         this.dropdownSubjectList =[...restsubj];
-        this.registerForm.controls['subjects'].setValue(this.dropdownSubjectList);
+        this.registerForm.controls['subjects'].patchValue('');
+        this.registerForm.controls['subjects'].setErrors(null);
       }
       else {
-        alert("Something went Wrong");
+        this._toaster.Error("Something went Wrong");
+      }
+    },
+    (error) => {
+      if (error.status === 401) {
+        this._toaster.Error("Unauthorized");
+      } else if (error.status === 404) {
+        this._toaster.Error("Not Found");
+      } else if (error.status === 500) {
+        this._toaster.Error("Internal Server Error");
+      } else {
+        this._toaster.Error("An error occurred");
       }
     });
   }
@@ -266,21 +288,35 @@ export class RegisterComponent implements OnInit, OnChanges {
     });
 
     this._service.updateFacultyById(this.updateFacultyobj.facultyId,this.facultyUpdateobj).subscribe((res: any) => {
-      console.log(res);
-      this.registerForm.controls['firstName'].patchValue('');
-      this.registerForm.controls['lastName'].patchValue('');
-      this.registerForm.controls['email'].patchValue('');
-      this.registerForm.controls['password'].patchValue('');
-      this.registerForm.controls['dept'].patchValue('Select menu');
-      let restcourse: any[] = [];
-      this.dropdownCourseList =[...restcourse];
-      this.registerForm.controls['courses'].setValue(this.dropdownCourseList);
-
-      let restsubj: any[] = [];
-      this.dropdownSubjectList =[...restsubj];
-      this.registerForm.controls['subjects'].setValue(this.dropdownSubjectList);
-
-    })
+      if(res.response == "Success"){
+         this._toaster.Success("Updated Successfully");
+         this.registerForm.reset();
+         this.registerForm.controls['dept'].patchValue('');
+         let restcourse: any[] = [];
+         this.dropdownCourseList =[...restcourse];
+         this.registerForm.controls['courses'].patchValue("");
+         this.registerForm.controls['courses'].setErrors(null);
+   
+         let restsubj: any[] = [];
+         this.dropdownSubjectList =[...restsubj];
+         this.registerForm.controls['subjects'].patchValue("");
+         this.registerForm.controls['subjects'].setErrors(null);
+      }
+      else{
+        this._toaster.Error("Something Went Wrong");
+      }
+    },
+    (error) => {
+      if (error.status === 401) {
+        this._toaster.Error("Unauthorized");
+      } else if (error.status === 404) {
+        this._toaster.Error("Not Found");
+      } else if (error.status === 500) {
+        this._toaster.Error("Internal Server Error");
+      } else {
+        this._toaster.Error("An error occurred");
+      }
+    });
   }
 
   onUserTypeSelection(type: any) {

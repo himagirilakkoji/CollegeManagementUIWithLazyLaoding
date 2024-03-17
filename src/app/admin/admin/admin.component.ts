@@ -5,6 +5,7 @@ import { Facultylist } from 'src/app/shared/models/facultylist';
 import { ServicesService } from 'src/app/shared/services.service';
 import { Sharedmodel } from 'src/app/shared/sharedmodel';
 import { CourseLevelReport } from '../models/courselevelreport';
+import { Studentlist } from 'src/app/shared/models/studentlist';
 
 @Component({
   selector: 'app-admin',
@@ -14,6 +15,7 @@ import { CourseLevelReport } from '../models/courselevelreport';
 export class AdminComponent {
   receivedData = new Sharedmodel();
   editCommonData = new Sharedmodel();
+  editStudentData = new Sharedmodel();
   editFacultyData = new Facultylist();
   currentFacultyUser = new Facultylist();
   courseLevelReport : CourseLevelReport[] = [];
@@ -90,6 +92,15 @@ export class AdminComponent {
   }
 
   facultySubjectReportEvent(data:any){
+    this.receivedData = data;
+  }
+
+  studentEditEvent(data:any){
+    this.receivedData = data.commondata;
+    this.editStudentData = data;
+  }
+
+  reprtdataEvent(data:any){
     this.receivedData = data;
   }
 

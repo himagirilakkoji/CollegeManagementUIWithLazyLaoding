@@ -65,7 +65,4 @@ export class SidebarComponent {
     this.dataEvent.emit(this.adminbarbj);
   }
 
-  viewStudentMarks(){
-  }
-
 }

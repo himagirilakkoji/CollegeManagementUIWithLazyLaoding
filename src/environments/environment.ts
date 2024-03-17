@@ -14,4 +14,5 @@ export const environment = {
     postStudentExamMarksUrl:"Api/Admin/SaveStudentMarks",
     getCourseLevelReportByIdUrl:"Api/Admin/CourseLevelReport",
     getSubjectLevelReportByIdUrl:"Api/Admin/SubjectLevelReport",
+    updateStudentByIdUrl:"Api/Admin/UpdateCurrentStudent",
 };

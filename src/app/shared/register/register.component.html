@@ -7,7 +7,7 @@
                     <div class="form-group col-6">
                         <label for="firstName" class="fw-bold">First Name :</label>
                         <input name="firstName" type="text" class="form-control" placeholder="Enter Your First Name"
-                            formControlName="firstName">
+                            formControlName="firstName" required>
                         <div class="validation-msg"
                             *ngIf="registerForm.controls['firstName'].invalid &&(registerForm.controls['firstName'].touched||registerForm.controls['firstName'].dirty)">
                             <div
@@ -19,7 +19,7 @@
                     <div class="form-group col-6 mb-3">
                         <label for="lastName" class="fw-bold">Last Name :</label>
                         <input name="lastName" type="text" class="form-control" placeholder="Enter Your Last Name"
-                            formControlName="lastName">
+                            formControlName="lastName" required>
                         <div class="validation-msg"
                             *ngIf="registerForm.controls['lastName'].invalid &&(registerForm.controls['lastName'].touched||registerForm.controls['lastName'].dirty)">
                             <div
@@ -33,7 +33,7 @@
                     <div class="form-group col-6">
                         <label for="email" class="fw-bold">Email ID :</label>
                         <input name="email" type="text" class="form-control" placeholder="Enter Your Eamil ID"
-                            formControlName="email">
+                            formControlName="email" required>
                         <div class="validation-msg"
                             *ngIf="registerForm.controls['email'].invalid &&(registerForm.controls['email'].touched||registerForm.controls['email'].dirty)">
                             <div
@@ -48,7 +48,7 @@
                     <div class="form-group col-6 mb-3">
                         <label for="password" class="fw-bold">Password :</label>
                         <input name="password" type="password" class="form-control" placeholder="Enter Your Password"
-                            formControlName="password">
+                            formControlName="password" required>
                         <div class="validation-msg"
                             *ngIf="registerForm.controls['password'].invalid &&(registerForm.controls['password'].touched||registerForm.controls['password'].dirty)">
                             <div
@@ -63,7 +63,7 @@
                     <div class="form-group col-6">
                         <label for="roles" class="fw-bold">Department :</label>
                         <select name="roles" #selectElement formControlName="dept" class="form-select"
-                            aria-label="Default select example" (change)="onDepartmentSelect($event)">
+                            aria-label="Default select example" (change)="onDepartmentSelect($event)" required>
                             <option value="" selected>Select menu</option>
                             <option *ngFor="let dept of departments" value="{{dept}}">
                                 {{dept}}</option>
@@ -84,7 +84,7 @@
                                 [placeholder]="'Select Your Item'" [settings]="dropdownCourseSettings"
                                 [data]="dropdownCourseList" formControlName="courses"
                                 (onSelect)="onCourseSelect($event)" (onSelectAll)="onSelectAll($event)"
-                                (onDeSelect)="onItemCourseDeSelect($event)" (onDeSelectAll)="onUnSelectAll()">
+                                (onDeSelect)="onItemCourseDeSelect($event)" (onDeSelectAll)="onUnSelectAll()" required>
                             </ng-multiselect-dropdown>
                             <div class="validation-msg"
                                 *ngIf="registerForm.controls['courses'].invalid && (registerForm.controls['courses'].touched || registerForm.controls['courses'].dirty)">
@@ -102,7 +102,7 @@
                     <ng-multiselect-dropdown #ngmultiselectsubjectdropdownElement [placeholder]="'Select Your Item'"
                         [settings]="dropdownSubjectSettings" [data]="dropdownSubjectList" formControlName="subjects"
                         (onSelect)="onItemSubjectSelect($event)" (onSelectAll)="onSelectAll($event)"
-                        (onDeSelect)="onItemSubjectDeSelect($event)" (onDeSelectAll)="onUnSelectAll()">
+                        (onDeSelect)="onItemSubjectDeSelect($event)" (onDeSelectAll)="onUnSelectAll()" required>
                     </ng-multiselect-dropdown>
                     <div class="validation-msg"
                         *ngIf="registerForm.controls['subjects'].invalid && (registerForm.controls['subjects'].touched || registerForm.controls['subjects'].dirty)">

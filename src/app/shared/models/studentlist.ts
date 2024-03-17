@@ -1,13 +1,14 @@
 export class Studentlist{
-    studentID :number | undefined
-    firstName :string | undefined
-    lastName :string | undefined
-    userName :string | undefined
-    email :string | undefined
-    password :string | undefined;
-    facultyID : string | undefined;
-    studentCourseVM  : StudentCourse[] | undefined;
-    studentSubjectEntities : StudentSubject[] | undefined;
+    studentID ="";
+    firstName ="";
+    lastName  ="";
+    userName  ="";
+    email     ="";
+    facultyUserName ="";
+    password ="";
+    facultyID ="";
+    studentCourseVM  : StudentCourse[] =[];
+    studentSubjectEntities : StudentSubject[] =[];
 }
 
 export class StudentCourse{
