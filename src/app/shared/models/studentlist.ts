@@ -23,3 +23,13 @@ export class StudentSubject{
     subjectName :string | undefined
     facultyID :number | undefined   
 }
+
+export class StudentMarks{
+    StudentID =0;
+    SubjectID =0;
+    FacultyID ="";
+    Name      ="";
+    Marks     =0;
+    classRoom ="";
+    semester  ="";
+}

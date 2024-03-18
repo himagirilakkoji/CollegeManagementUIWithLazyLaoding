@@ -16,8 +16,8 @@
                     </div>
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="branch" class="fw-bold">Branch :</label>
-                    <select name="branch" formControlName="branch" class="form-select"
+                    <label for="roles" class="fw-bold">Branch :</label>
+                    <select name="roles" formControlName="branch" class="form-select"
                         aria-label="Default select example" (change)="onBranchSelect($event)" required>
                         <option value="" selected>Select menu</option>
                         <option *ngFor="let item of branches" value="{{item}}">{{item}}</option>
@@ -72,6 +72,9 @@
                                 <div
                                     *ngIf="studentExamMarksForm.get('subjects.' + sub.subjectName)?.hasError('required') && !studentExamMarksForm.get('subjects.' + sub.subjectName)?.valid">
                                     Marks is required
+                                </div>
+                                <div *ngIf="studentExamMarksForm.get('subjects.' + sub.subjectName)?.hasError('pattern')">
+                                    Only numbers are accepted
                                 </div>
                             </div>
                         </div>

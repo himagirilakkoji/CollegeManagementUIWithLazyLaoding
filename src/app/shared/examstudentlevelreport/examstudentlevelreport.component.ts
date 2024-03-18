@@ -24,12 +24,6 @@ export class ExamstudentlevelreportComponent {
          this.subjectReport = res;
          this.displayBarChart(this.subjectReport);
     });
-
-    //let names = ["c#", "html", "SQl"];
-    //let data = [10, 20, 30];
-    
-
-
   }
 
   displayBarChart(reports:any){
@@ -42,7 +36,7 @@ export class ExamstudentlevelreportComponent {
         labels: [...names],
         datasets: [
           {
-            label: 'Subjects',
+            label: 'Exams',
             data: [...averageMarks],
             backgroundColor: [...backgroundColors]
           }
@@ -53,7 +47,7 @@ export class ExamstudentlevelreportComponent {
           xAxes: [{
             scaleLabel: {
               display: true,
-              labelString: 'Exams'
+              labelString: 'Subjects'
             }
           }],
           yAxes: [{

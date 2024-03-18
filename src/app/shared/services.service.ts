@@ -82,5 +82,10 @@ export class ServicesService {
     const apiUrl = environment.apiUrl+environment.updateStudentByIdUrl;
     return this.http.put<any>(`${apiUrl}/${userid}`, data);
   }
+
+  getStudentMarksById(userid:any): Observable<any> {
+    const apiUrl = environment.apiUrl+environment.getStudentMarksByIdUrl;
+    return this.http.get<any>(`${apiUrl}/${userid}`);
+  }
   
 }

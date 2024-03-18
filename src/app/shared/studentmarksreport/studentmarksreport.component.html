@@ -1,0 +1,20 @@
+<div class="container-fluid examreport">
+    <div class="row justify-content-end">
+        <div class="col-auto">
+            <label for="roles" class="fw-bold">Semester Wise :</label>
+            <div class="d-flex align-items-center">
+                <select name="roles" class="form-select me-2" aria-label="Default select example"
+                    (change)="onSemesterSelect($event)" required>
+                    <option value="" selected>Select Menu</option>
+                    <option *ngFor="let sem of distinctSemesters" [value]="sem">{{sem}}</option>
+                </select>
+                <button class="btn btn-primary" (click)="navigateToStudentList()">Back</button>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div style="width: 500px;">
+            <canvas id="canvas" width="400" height="400"></canvas>
+        </div>
+    </div>
+</div>

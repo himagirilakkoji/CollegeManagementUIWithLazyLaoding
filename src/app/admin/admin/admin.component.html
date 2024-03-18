@@ -8,7 +8,8 @@
             <app-sidebar (dataEvent)="receiveData($event)"></app-sidebar>
         </div>
         <div class="col-md-10 d-flex align-items-center justify-content-center verticalscrollbar">
-            <app-studentlist (regdataEvent)="receiveStudentlistData($event)" (studentEditEvent)="studentEditEvent($event)" *ngIf="receivedData.isStudentlistClicked"
+            <app-studentlist (regdataEvent)="receiveStudentlistData($event)" (studentEditEvent)="studentEditEvent($event)" (studentReportEvent)="studentReportEvent($event)"
+               *ngIf="receivedData.isStudentlistClicked"
                 class="w-100" style="box-shadow: 0px 25px 40px 3px rgba(0,0,0,0.45);"></app-studentlist>
             <app-facultylist (regdataEvent)="receiveFacultylistData($event)"
                 (facultyEditEvent)="receiveEditFacutyData($event)" (facultyEvent)="receiveCommonData($event)"
@@ -27,6 +28,7 @@
             <app-examreport [courseLevelReport]="courseLevelReport" (facultyCourseReportEvent)="facultyCourseLevelReport($event)"
                 *ngIf="receivedData.isFacultyReportClicked"></app-examreport>
             <app-examstudentlevelreport [currentFacultyUser] = [currentFacultyUser] (facultySubjectReportEvent)="facultySubjectReportEvent($event)" *ngIf="receivedData.isSubjectReportClicked"></app-examstudentlevelreport>
+            <app-studentmarksreport [studentMarksList] = "studentMarksList"  (studentMarksReportEvent)="studentMarksReportEvent($event)" *ngIf="receivedData.isStudentReportClicked"></app-studentmarksreport>
         </div>
     </div>
 </div>

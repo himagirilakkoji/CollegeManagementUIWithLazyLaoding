@@ -6,6 +6,7 @@ import { ClassRoom, Semester, StudentMarks, Subjects } from '../models/studentma
 import { NgZone } from '@angular/core';
 import { FieldValidationPattern } from '../validationpatterns/FieldValidationPattern';
 import { Sharedmodel } from '../sharedmodel';
+import { NotificationtoasterService } from '../notificationtoaster.service';
 
 @Component({
   selector: 'app-addstudentmarks',
@@ -25,7 +26,7 @@ export class AddstudentmarksComponent {
 
   @Output() reprtdataEvent = new EventEmitter<Sharedmodel>();
 
-  constructor(private formBuilder: FormBuilder,private _service: ServicesService,private zone: NgZone){
+  constructor(private formBuilder: FormBuilder,private _service: ServicesService,private zone: NgZone,private _toaster:NotificationtoasterService){
     this.semester = [{ name: 'Midterm' },{ name: 'Final' }];
     this.classRoom = [{ name: 'A' },{ name: 'B' }];
   }
@@ -85,16 +86,35 @@ export class AddstudentmarksComponent {
 
       this._service.postStudentExamMarks(this.studentMarks).subscribe(res =>{
          if(res.response == "Success"){
-            alert("Successfully StudentMarks are Saved");
+            this._toaster.Success("Successfully StudentMarks are Saved");
+            this.allSubjects = [];
+            this.studentExamMarksForm.reset();
+
+            const subjectsFormGroup = this.studentExamMarksForm.get('subjects') as FormGroup;
+            // Remove all existing controls
+            Object.keys(subjectsFormGroup.controls).forEach(key => {
+              subjectsFormGroup.removeControl(key);
+            });
+
+            this.studentExamMarksForm.controls['studentName'].patchValue("");
+            this.studentExamMarksForm.controls['branch'].patchValue("");
+            this.studentExamMarksForm.controls['semester'].patchValue("");
+            this.studentExamMarksForm.controls['classroom'].patchValue("");
          }
          if(res.response == "Already exists"){
-          alert(res.response);
+          this._toaster.Error("Already Exists..");
          }
-         this.studentExamMarksForm.controls['studentName'].patchValue('');
-         this.studentExamMarksForm.controls['branch'].patchValue('Select menu');
-         this.studentExamMarksForm.controls['semester'].patchValue('Select menu');
-         this.studentExamMarksForm.controls['classroom'].patchValue('Select menu');
-         this.studentExamMarksForm.controls['subjects'].reset();
+      },
+      (error) => {
+        if (error.status === 401) {
+          this._toaster.Error("Unauthorized");
+        } else if (error.status === 404) {
+          this._toaster.Error("Not Found");
+        } else if (error.status === 500) {
+          this._toaster.Error("Internal Server Error");
+        } else {
+          this._toaster.Error("An error occurred");
+        }
       });
   }
 

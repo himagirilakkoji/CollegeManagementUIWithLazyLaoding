@@ -22,6 +22,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { NotificationtoasterService } from './notificationtoaster.service';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { StudentRegistrationComponent } from './studentreg/studentregistration.component';
+import { StudentmarksreportComponent } from './studentmarksreport/studentmarksreport.component';
 
 
 
@@ -38,6 +39,7 @@ import { StudentRegistrationComponent } from './studentreg/studentregistration.c
     AddstudentmarksComponent,
     ExamstudentlevelreportComponent,
     StudentRegistrationComponent,
+    StudentmarksreportComponent,
   ],
   imports: [
     CommonModule,
@@ -54,7 +56,7 @@ import { StudentRegistrationComponent } from './studentreg/studentregistration.c
     NgMultiSelectDropDownModule.forRoot(),
   ],
   exports: [RegisterComponent,LoaderComponent,TopbarComponent,SidebarComponent,FormsModule,
-    ReactiveFormsModule ,StudentlistComponent,StudentRegistrationComponent,
+    ReactiveFormsModule ,StudentlistComponent,StudentRegistrationComponent,StudentmarksreportComponent,
     FacultylistComponent,StudentregisterComponent,ExamreportComponent,AddstudentmarksComponent,ExamstudentlevelreportComponent],
   providers: [LoginGuard,ServicesService,SpinnerService,NotificationtoasterService,{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi:true},
                                              {provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi:true}]

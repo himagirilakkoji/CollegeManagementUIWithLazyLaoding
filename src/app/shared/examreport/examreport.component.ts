@@ -44,13 +44,13 @@ export class ExamreportComponent implements OnInit {
           xAxes: [{
             scaleLabel: {
               display: true,
-              labelString: 'Exams'
+              labelString: 'CourseLevel'
             }
           }],
           yAxes: [{
             scaleLabel: {
               display: true,
-              labelString: 'CourseLevelAverage'
+              labelString: 'ExamsAverage'
             },
             ticks: {
               beginAtZero: true,

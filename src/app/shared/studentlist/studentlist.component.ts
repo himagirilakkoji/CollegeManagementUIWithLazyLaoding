@@ -2,7 +2,7 @@ import { Component, EventEmitter, OnChanges, OnInit, Output, SimpleChanges } fro
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ServicesService } from '../services.service';
-import { Studentlist } from '../models/studentlist';
+import { StudentMarks, Studentlist } from '../models/studentlist';
 import { Sharedmodel } from '../sharedmodel';
 import { Studentregistration } from '../models/Studentregistration';
 import { NotificationtoasterService } from '../notificationtoaster.service';
@@ -14,7 +14,10 @@ import { NotificationtoasterService } from '../notificationtoaster.service';
 })
 export class StudentlistComponent implements OnInit, OnChanges {
   allstudents: Studentlist[] = [];
+  allstudentMarks : StudentMarks[] = [];
   @Output() studentEditEvent = new EventEmitter<{ commondata: Sharedmodel, currentStudent: Studentlist }>();
+  @Output() studentReportEvent = new EventEmitter<{ studentUser: Studentlist, commondata: Sharedmodel, StudentmarksReport: StudentMarks[] }>();
+
 
   constructor(private formBuilder: FormBuilder, private router: Router, private _service: ServicesService,private _toaster:NotificationtoasterService) {
 
@@ -26,8 +29,24 @@ export class StudentlistComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this._service.getStudentListdata().subscribe(res => {
+      if(res.length >0){
+        this._toaster.Success("Loading...");
+      }
+      else{
+        this._toaster.Error("Not Found");
+      }
       this.allstudents = res;
-      console.log(res);
+    },
+    (error) => {
+      if (error.status === 401) {
+        this._toaster.Error("Unauthorized");
+      } else if (error.status === 404) {
+        this._toaster.Error("Not Found");
+      } else if (error.status === 500) {
+        this._toaster.Error("Internal Server Error");
+      } else {
+        this._toaster.Error("An error occurred");
+      }
     });
   }
 
@@ -64,6 +83,15 @@ export class StudentlistComponent implements OnInit, OnChanges {
   }
 
   showStudentReport(user: any) {
+    let studentObj = new Sharedmodel();
+    studentObj.isStudentReportClicked = true;
+    this._service.getStudentMarksById(user.studentID).subscribe(res=>{
+        if(res.length>0){
+          this.allstudentMarks = res;
+          this.studentReportEvent.emit({ studentUser: user, commondata: studentObj, StudentmarksReport: this.allstudentMarks });
+        }
+    });
+
 
   }
 

@@ -5,7 +5,7 @@ import { Facultylist } from 'src/app/shared/models/facultylist';
 import { ServicesService } from 'src/app/shared/services.service';
 import { Sharedmodel } from 'src/app/shared/sharedmodel';
 import { CourseLevelReport } from '../models/courselevelreport';
-import { Studentlist } from 'src/app/shared/models/studentlist';
+import { StudentMarks, Studentlist } from 'src/app/shared/models/studentlist';
 
 @Component({
   selector: 'app-admin',
@@ -18,6 +18,8 @@ export class AdminComponent {
   editStudentData = new Sharedmodel();
   editFacultyData = new Facultylist();
   currentFacultyUser = new Facultylist();
+  currentStudentData =new Studentlist();
+  studentMarksList: StudentMarks[] = [];
   courseLevelReport : CourseLevelReport[] = [];
   sessiondata: string = "";
 
@@ -101,6 +103,16 @@ export class AdminComponent {
   }
 
   reprtdataEvent(data:any){
+    this.receivedData = data;
+  }
+
+  studentReportEvent(data:any){
+    this.receivedData = data.commondata;
+    this.studentMarksList= data.StudentmarksReport;
+    this.currentStudentData = data.studentUser;
+  }
+
+  studentMarksReportEvent(data:any){
     this.receivedData = data;
   }
 
