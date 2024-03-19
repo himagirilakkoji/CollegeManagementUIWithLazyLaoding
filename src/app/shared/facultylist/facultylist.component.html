@@ -14,7 +14,7 @@
           </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let user of allfaculties | paginate: { id:'listing_pagination', itemsPerPage: itemsPerPage, currentPage: page, totalItems: pageSize }; let i = index">
+        <tr *ngFor="let user of allfaculties | paginate: { id:'listing_pagination', itemsPerPage: itemsPerPage, currentPage: page, totalItems: totalPages }; let i = index">
             <th scope="row">{{i+1}}</th>
             <td>{{user.firstName}}</td>
             <td>{{user.lastName}}</td>

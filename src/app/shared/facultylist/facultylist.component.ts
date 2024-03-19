@@ -20,7 +20,8 @@ export class FacultylistComponent implements OnInit {
 
   page: number = 1;
   itemsPerPage = 2;
-  pageSize = 10;
+  totalPages = 0;
+
   constructor(private service: ServicesService, private spinnerservice: SpinnerService, private toaster: NotificationtoasterService) {
 
   }
@@ -33,6 +34,7 @@ export class FacultylistComponent implements OnInit {
     //get faculty data
     this.service.getFacultyListdataByPagination(this.page, this.itemsPerPage).subscribe(res => {
       this.allfaculties = res.response;
+      this.totalPages = res.totalRecords;
       if (this.allfaculties.length > 0) {
         this.toaster.Success("Records loading...");
       }
@@ -60,9 +62,17 @@ export class FacultylistComponent implements OnInit {
         this.toaster.Success("Deleted Record Successfully");
         //get faculty data
         this.service.getFacultyListdataByPagination(this.page, this.itemsPerPage).subscribe(res => {
-          this.allfaculties = res.response;
-          if (this.allfaculties.length > 0) {
-            this.toaster.Success("Records loading...");
+          this.totalPages = res.totalRecords;
+          if (res.totalRecords > 0) {
+            if (res.response != null) {
+              this.allfaculties = res.response;
+            }
+
+            if (res.response == null) {
+              this.service.getFacultyListdataByPagination(this.page - 1, this.itemsPerPage).subscribe(res => {
+                this.allfaculties = res.response;
+              });
+            }
           }
           else {
             this.toaster.Error("Not Found");
@@ -81,17 +91,17 @@ export class FacultylistComponent implements OnInit {
           });
       }
     },
-    (error) => {
-      if (error.status === 401) {
-        this.toaster.Error("Unauthorized");
-      } else if (error.status === 404) {
-        this.toaster.Error("Not Found");
-      } else if (error.status === 500) {
-        this.toaster.Error("Internal Server Error");
-      } else {
-        this.toaster.Error("An error occurred");
-      }
-    });
+      (error) => {
+        if (error.status === 401) {
+          this.toaster.Error("Unauthorized");
+        } else if (error.status === 404) {
+          this.toaster.Error("Not Found");
+        } else if (error.status === 500) {
+          this.toaster.Error("Internal Server Error");
+        } else {
+          this.toaster.Error("An error occurred");
+        }
+      });
   }
 
   editUser(data: any) {
@@ -115,23 +125,24 @@ export class FacultylistComponent implements OnInit {
       this.toaster.Success("Loading...");
       this.facultyReportEvent.emit({ facultyUser: data, commondata: this.facultyObj, courselevelReport: res });
     },
-    (error) => {
-      if (error.status === 401) {
-        this.toaster.Error("Unauthorized");
-      } else if (error.status === 404) {
-        this.toaster.Error("Not Found");
-      } else if (error.status === 500) {
-        this.toaster.Error("Internal Server Error");
-      } else {
-        this.toaster.Error("An error occurred");
-      }
-    });
+      (error) => {
+        if (error.status === 401) {
+          this.toaster.Error("Unauthorized");
+        } else if (error.status === 404) {
+          this.toaster.Error("Not Found");
+        } else if (error.status === 500) {
+          this.toaster.Error("Internal Server Error");
+        } else {
+          this.toaster.Error("An error occurred");
+        }
+      });
   }
 
   handlePageChange(event: any) {
     this.page = event;
     //get faculty data
     this.service.getFacultyListdataByPagination(this.page, this.itemsPerPage).subscribe(res => {
+      this.totalPages = res.totalRecords;
       this.allfaculties = res.response;
       if (this.allfaculties.length > 0) {
         this.toaster.Success("Records loading...");
