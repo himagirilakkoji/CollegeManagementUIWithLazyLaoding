@@ -25,7 +25,8 @@ export class ExamreportComponent implements OnInit {
     let names = this.courseReport.map(item => item.name);
     let averageMarks = this.courseReport.map(item => item.averageMarks);
     let totalAverageMarks = averageMarks.reduce((acc, val) => acc + val, 0);
-    let overallPercentage = (totalAverageMarks / (averageMarks.length * 100)) * 100;
+    let overallPercentage = ((totalAverageMarks / (averageMarks.length * 100)) * 100);
+    overallPercentage = Math.round(overallPercentage * 100) / 100;
 
     this.chart = new Chart('canvas', {
       type: 'bar',
@@ -35,7 +36,7 @@ export class ExamreportComponent implements OnInit {
           {
             label: 'Course',
             data: [...averageMarks, overallPercentage],
-            backgroundColor: [...Array(names.length).fill('rgba(54, 162, 235, 0.6)'), 'rgba(255, 99, 132, 0.6)']
+            backgroundColor: [...Array(names.length).fill('rgba(153, 102, 255, 0.6)'), 'rgba(75, 0, 130, 0.6)']
           }
         ]
       },

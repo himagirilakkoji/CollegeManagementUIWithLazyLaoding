@@ -29,7 +29,7 @@ export class StudentmarksreportComponent {
           {
             label: 'Marks',
             data: [],
-            backgroundColor: 'rgba(54, 162, 235, 0.6)'
+            backgroundColor: 'rgba(75, 192, 192, 0.6)'
           }
         ]
       },
@@ -68,6 +68,10 @@ export class StudentmarksreportComponent {
   
     this.chart.data.labels = [...names, 'Overall'];
     this.chart.data.datasets[0].data = [...marks, overallPercentage];
+
+    this.chart.data.datasets[0].backgroundColor = [
+      ...Array(names.length).fill('rgba(75, 192, 192, 0.6)'),'rgba(0, 128, 0, 0.6)'
+    ];
 
     this.chart.update();
   }

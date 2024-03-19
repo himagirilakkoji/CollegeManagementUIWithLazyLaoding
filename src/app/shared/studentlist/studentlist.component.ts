@@ -90,6 +90,20 @@ export class StudentlistComponent implements OnInit, OnChanges {
           this.allstudentMarks = res;
           this.studentReportEvent.emit({ studentUser: user, commondata: studentObj, StudentmarksReport: this.allstudentMarks });
         }
+        else{
+          this._toaster.Error("Not Found");
+        }
+    },
+    (error) => {
+      if (error.status === 401) {
+        this._toaster.Error("Unauthorized");
+      } else if (error.status === 404) {
+        this._toaster.Error("Not Found");
+      } else if (error.status === 500) {
+        this._toaster.Error("Internal Server Error");
+      } else {
+        this._toaster.Error("An error occurred");
+      }
     });
 
 

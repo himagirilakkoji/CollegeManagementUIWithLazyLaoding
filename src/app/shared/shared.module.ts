@@ -48,7 +48,7 @@ import { StudentmarksreportComponent } from './studentmarksreport/studentmarksre
     ReactiveFormsModule,
     ToastrModule.forRoot(
       {
-        timeOut: 1000,
+        timeOut: 1500,
         preventDuplicates: true
       }
     ),

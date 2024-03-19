@@ -101,8 +101,8 @@ export class AddstudentmarksComponent {
             this.studentExamMarksForm.controls['semester'].patchValue("");
             this.studentExamMarksForm.controls['classroom'].patchValue("");
          }
-         if(res.response == "Already exists"){
-          this._toaster.Error("Already Exists..");
+         if(res.response != "Success"){
+          this._toaster.Error(res.response);
          }
       },
       (error) => {

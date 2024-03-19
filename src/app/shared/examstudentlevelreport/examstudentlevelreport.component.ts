@@ -29,7 +29,7 @@ export class ExamstudentlevelreportComponent {
   displayBarChart(reports:any){
     let names = reports.map((item:any) => item.name);
     let averageMarks = reports.map((item:any) => item.averageMarks);
-    let backgroundColors = Array(names.length).fill('rgba(255, 99, 132, 0.6)');
+    let backgroundColors = Array(names.length).fill('rgba(255, 159, 64, 0.6)');
     this.chart = new Chart('canvas', {
       type: 'bar',
       data: {
