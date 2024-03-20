@@ -87,5 +87,10 @@ export class ServicesService {
     const apiUrl = environment.apiUrl+environment.getStudentMarksByIdUrl;
     return this.http.get<any>(`${apiUrl}/${userid}`);
   }
+
+  getAutoSearchStudentNamesByText(text:any): Observable<any> {
+    const apiUrl = environment.apiUrl+environment.getAutoSearchStudentNamesByText;
+    return this.http.get<any>(`${apiUrl}/${text}`);
+  }
   
 }

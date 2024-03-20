@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, EventEmitter, HostListener, Output } from '@angular/core';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { ServicesService } from '../services.service';
 import { Department, Subject } from '../models/department';
 import { ClassRoom, Semester, StudentMarks, Subjects } from '../models/studentmarks';
@@ -26,6 +26,9 @@ export class AddstudentmarksComponent {
 
   @Output() reprtdataEvent = new EventEmitter<Sharedmodel>();
 
+  keyword = "";
+  studentNames = [];
+
   constructor(private formBuilder: FormBuilder,private _service: ServicesService,private zone: NgZone,private _toaster:NotificationtoasterService){
     this.semester = [{ name: 'Midterm' },{ name: 'Final' }];
     this.classRoom = [{ name: 'A' },{ name: 'B' }];
@@ -42,7 +45,7 @@ export class AddstudentmarksComponent {
 
   buildForm() {
     this.studentExamMarksForm = this.formBuilder.group({
-      studentName: new FormControl("", [Validators.required,]),
+      studentName: new FormControl("", [Validators.required,this.noWhitespaceValidator]),
       branch: new FormControl("", [Validators.required]),
       semester: new FormControl("", [Validators.required]),
       classroom: new FormControl("", [Validators.required]),
@@ -130,4 +133,37 @@ export class AddstudentmarksComponent {
   onClassSelect(data:any){
     //this.clearSubjects();
   }
+
+  selectEvent(item:any) {
+    // do something with selected item
+  }
+
+  onChangeSearch(val: string) {
+    this.autoSearch(val);
+  }
+  
+  onFocused(e:any){
+    // do something when input is focused
+  }
+
+  onInputClear(event:any){
+    this.studentNames = [];
+  }
+
+  autoSearch(seacrchtext:any){
+     this._service.getAutoSearchStudentNamesByText(seacrchtext).subscribe(res =>{
+        let allStudentNames = res.map((name:any)=> name.studentName);
+        this.studentNames = allStudentNames;
+     })
+  }
+
+  noWhitespaceValidator(control: FormControl): ValidationErrors | null {
+    if(control.value == ''){
+         return null;
+    }
+    const isWhitespace = (control.value || '').trim().length === 0;
+    const isValid = !isWhitespace;
+    return isValid ? null : { 'whitespace': true };
+  }
+  
 }

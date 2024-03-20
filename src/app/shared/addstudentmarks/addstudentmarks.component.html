@@ -5,13 +5,29 @@
             <div class="row">
                 <div class="form-group col-md-6">
                     <label for="studentName" class="fw-bold">Student Name :</label>
-                    <input name="studentName" type="text" class="form-control" placeholder="Enter Your First Name"
-                        formControlName="studentName" required>
+                    <ng-autocomplete [data]="studentNames" [searchKeyword]="keyword" placeholder="Select Student Name"
+                        (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)'
+                        (inputCleared)='onInputClear($event)' formControlName="studentName"
+                        (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
+                        [notFoundTemplate]="notFoundTemplate" required>
+                    </ng-autocomplete>
+
+                    <ng-template #itemTemplate let-item>
+                        <a [innerHTML]="item"></a>
+                    </ng-template>
+
+                    <ng-template #notFoundTemplate let-notFound>
+                        <div [innerHTML]="notFound"></div>
+                    </ng-template>
+
                     <div class="validation-msg"
                         *ngIf="studentExamMarksForm.controls['studentName'].invalid &&(studentExamMarksForm.controls['studentName'].touched||studentExamMarksForm.controls['studentName'].dirty)">
                         <div
                             *ngIf="studentExamMarksForm.controls['studentName'].hasError('required') && !studentExamMarksForm.controls['studentName'].valid">
                             Student Name is required
+                        </div>
+                        <div *ngIf="studentExamMarksForm.controls['studentName'].hasError('whitespace') && !studentExamMarksForm.controls['studentName'].valid">
+                            We do not allow contunies spaces
                         </div>
                     </div>
                 </div>

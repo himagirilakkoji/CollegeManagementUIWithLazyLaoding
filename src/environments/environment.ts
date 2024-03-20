@@ -16,4 +16,5 @@ export const environment = {
     getSubjectLevelReportByIdUrl:"Api/Admin/SubjectLevelReport",
     updateStudentByIdUrl:"Api/Admin/UpdateCurrentStudent",
     getStudentMarksByIdUrl:"Api/Admin/StudentMarksListById",
+    getAutoSearchStudentNamesByText:"Api/Admin/SearchStudent",
 };

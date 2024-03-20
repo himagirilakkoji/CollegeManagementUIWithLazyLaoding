@@ -23,6 +23,7 @@ import { NotificationtoasterService } from './notificationtoaster.service';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { StudentRegistrationComponent } from './studentreg/studentregistration.component';
 import { StudentmarksreportComponent } from './studentmarksreport/studentmarksreport.component';
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 
 
 
@@ -54,6 +55,7 @@ import { StudentmarksreportComponent } from './studentmarksreport/studentmarksre
     ),
     NgxPaginationModule,
     NgMultiSelectDropDownModule.forRoot(),
+    AutocompleteLibModule
   ],
   exports: [RegisterComponent,LoaderComponent,TopbarComponent,SidebarComponent,FormsModule,
     ReactiveFormsModule ,StudentlistComponent,StudentRegistrationComponent,StudentmarksreportComponent,
