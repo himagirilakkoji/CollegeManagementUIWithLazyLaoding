@@ -12,12 +12,14 @@ import { loginReducer} from './loginReducer'
 import { StoreModule } from '@ngrx/store';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    LogincontentComponent
+    LogincontentComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,

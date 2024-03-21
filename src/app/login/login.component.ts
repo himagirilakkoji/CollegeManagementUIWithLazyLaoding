@@ -42,25 +42,15 @@ export class LoginComponent implements OnInit {
   navigateToDashBoard() {
     this.loginobj.emailid = this.loginForm.get('email')?.value;
     this.loginobj.password = this.loginForm.get('password')?.value;
+    localStorage.removeItem('RoleName');
     this.service.postAdmin(this.loginobj).subscribe(res => {
-      if (res != null && res.adminDetails.roleName == "Admin") {
-        console.log("login", res.adminDetails.roleName);
-        this._store.dispatch(loginAdminAction());
-        this.toastr.loginSuccess('User Login Sucess');
-      }
-      if (res != null && res.adminDetails.roleName == "Faculty") {
-        console.log("login", res.adminDetails.roleName);
-        this._store.dispatch(loginFacultyAction());
-        this.toastr.loginSuccess('User Login Sucess');
-      }
-      if (res != null && res.adminDetails.roleName == "Student") {
-        console.log("login", res.adminDetails.roleName);
-        this._store.dispatch(loginStudentAction());
-        this.toastr.loginSuccess('User Login Sucess');
-      }
-      if(res == null){
-        this.toastr.Error("Something Went Wrong");
-      }
+    localStorage.setItem('RoleName',res.adminDetails.roleName );
+    if(res.adminDetails.roleName !=null){
+      this.toastr.loginSuccess('User Login Sucess');
+    }
+    else{
+      this.toastr.Error('Invalid User');
+    }
     },
     (error) => {
       if (error.status === 401) {

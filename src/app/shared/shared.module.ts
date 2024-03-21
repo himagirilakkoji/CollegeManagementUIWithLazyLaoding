@@ -24,6 +24,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { StudentRegistrationComponent } from './studentreg/studentregistration.component';
 import { StudentmarksreportComponent } from './studentmarksreport/studentmarksreport.component';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
+import { FacultyGuard } from './authguard/faculty.guard';
+import { StudentGuard } from './authguard/student.guard';
 
 
 
@@ -60,7 +62,7 @@ import { AutocompleteLibModule } from 'angular-ng-autocomplete';
   exports: [RegisterComponent,LoaderComponent,TopbarComponent,SidebarComponent,FormsModule,
     ReactiveFormsModule ,StudentlistComponent,StudentRegistrationComponent,StudentmarksreportComponent,
     FacultylistComponent,StudentregisterComponent,ExamreportComponent,AddstudentmarksComponent,ExamstudentlevelreportComponent],
-  providers: [LoginGuard,ServicesService,SpinnerService,NotificationtoasterService,{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi:true},
+  providers: [LoginGuard,FacultyGuard,StudentGuard,ServicesService,SpinnerService,NotificationtoasterService,{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi:true},
                                              {provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi:true}]
 })
 export class SharedModule { }

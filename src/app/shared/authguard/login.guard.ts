@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ServicesService } from '../services.service';
 import { Store } from '@ngrx/store';
@@ -8,29 +8,24 @@ import { Store } from '@ngrx/store';
   providedIn: 'root'
 })
 export class LoginGuard implements CanActivate {
-  RoleType: string = "";
   isNavigation: boolean = false;
-  constructor(private _service: ServicesService, private _store: Store<{ data: { data: string } }>) {
+  constructor(private _service: ServicesService,private route:Router, private _store: Store<{ data: { data: string } }>) {
   }
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-
-    this._store.select('data').subscribe(res => {
-      this.RoleType = res.data;
-      console.log("login auth" , this.RoleType);
-      if (this.RoleType == "Admin") {
-        return this.isNavigation = true;
-      }
-      if (this.RoleType == "Faculty") {
-        return this.isNavigation = true;
-      }
-      if (this.RoleType == "Student") {
-        return this.isNavigation = true;
-      }
-      return this.isNavigation = false;
-    })
-    return this.isNavigation = true;
+   
+    let RoleName = localStorage.getItem('RoleName');
+    let requestedUrl = state.url.split('/')[1]; // Extract the first part of the URL
+    if (RoleName?.toLowerCase() === "admin" && requestedUrl === 'adminDashboard') {
+      return true;
+    } else if (RoleName?.toLowerCase() === "faculty" && requestedUrl === 'facultyDashboard') {
+      return true;
+    } else if (RoleName?.toLowerCase() === "student" && requestedUrl === 'studentDashboard') {
+      return true;
+    } else {
+      return this.route.navigateByUrl('notFound'); // Redirect to PageNotFoundComponent
+    }
   }
 }
